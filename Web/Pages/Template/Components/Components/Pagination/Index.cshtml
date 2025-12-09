@@ -1,0 +1,111 @@
+﻿@using Web.Pages.Template.Components.Pagination;
+@model VCPagination
+@{
+    string PageRout = $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}";
+
+    // Get the QueryString from HttpContext
+    var queryString = Context.Request.QueryString;
+
+    // Parse the query string
+    var queryParameters = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(queryString.ToString());
+
+    // Remove 'page' and 'PageSize' parameters
+    queryParameters.Remove("page");
+    queryParameters.Remove("PageSize");
+
+    // Reconstruct the query string without 'page' and 'PageSize' parameters
+    var newQueryString = ToQueryString(queryParameters);
+
+    ///pagination Logic
+
+    int start;
+    int end;
+    if ((Model.Page - 3) < 1)
+    {
+        start = 1;
+    }
+    else
+    {
+        start = Model.Page - 3;
+    }
+
+    if (Model.Total < Model.PageSize)
+    {
+        end = Model.Page;
+    }
+    else
+    {
+        end = Model.Page + 3;
+    }
+
+    static string ToQueryString(Dictionary<string, Microsoft.Extensions.Primitives.StringValues> dictionary)
+    {
+        var list = new List<string>();
+        foreach (var pair in dictionary)
+        {
+            foreach (var value in pair.Value)
+            {
+                list.Add($"{Uri.EscapeDataString(pair.Key)}={Uri.EscapeDataString(value)}");
+            }
+        }
+        return string.Join("&", list);
+    }
+
+}
+
+@if (Model.Page == 1 && Model.Total < Model.PageSize)
+{
+
+}
+else
+{
+
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <ul class="pagination-wrap">
+
+                @if (Model.Page != 1)
+                {
+                    <li>
+                        <a href="@PageRout?page=@(Model.Page - 1)&PageSize=@Model.PageSize&@newQueryString"
+                           class="">
+                            <i class="ti-angle-right">
+                            </i>
+
+                        </a>
+                    </li>
+                }
+                @for (int i = start; i <= end; i++)
+                {
+                    <li class="@(Model.Page == i ? "active" : "")">
+                        <a class="@(Model.Page == i ? "active" : "")" href="@PageRout?page=@(i)&PageSize=@Model.PageSize&@newQueryString">
+                            @(i)
+                        </a>
+                    </li>
+                }
+                @if (Model.Total >= Model.PageSize)
+                {
+
+                    <li>
+                        <a href="@PageRout?page=@(Model.Page + 1)&PageSize=@Model.PageSize&@newQueryString"
+                           class=" ">
+                            <i class="ti-angle-left">
+                            </i>
+                        </a>
+                    </li>
+                }
+
+
+
+              
+              
+            </ul>
+        </div>
+    </div>
+
+
+
+ 
+}
+

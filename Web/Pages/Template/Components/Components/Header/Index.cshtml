@@ -1,0 +1,57 @@
+﻿@model HeaderVCModel
+@{
+    bool? IsIndex = ViewBag.IsIndex;
+    if (IsIndex == null)
+        IsIndex = false;
+
+
+    bool hasHeader = true;
+
+    if (ViewBag.HasHeader != null)
+    {
+        hasHeader = false;
+    }
+
+}
+
+
+
+@if (hasHeader == true)
+{
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <!-- Logo -->
+            <div class="logo-wrapper">
+                <a class="logo" href="/">
+                    <img alt="@Model.Setting.SiteTitle" class="logo-img" src="@Model.Setting.LogoUrl" />
+                </a>
+                <!-- <a class="logo" href="index.html"><div class="logo"><img src="/Template/img/logo.png" alt=""></div></a> -->
+            </div>
+            <!-- Button -->
+            <button aria-controls="navbar" aria-expanded="false" aria-label="ناوبری را تغییر دهید"
+                    class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon">
+                    <i class="fa-solid fa-bars">
+                    </i>
+                </span>
+            </button>
+            <!-- Menu -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbar">
+                <ul class="navbar-nav ">
+
+
+               
+
+ 
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+}

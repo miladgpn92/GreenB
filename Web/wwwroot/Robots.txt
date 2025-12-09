@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /dtcms/*
+Sitemap: https://jaryan.agency/sitemap.xml

@@ -1,0 +1,120 @@
+﻿@page
+@using Web.Pages.Template.Components.CommonComponent.AdminBar;
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    ViewBag.IsIndex = true;
+
+    List<AdminBarCustomModel>? Custom = new List<AdminBarCustomModel>()
+    {
+        new AdminBarCustomModel()
+        {
+            Icon="dashboard",
+Link = "/dtcms",
+Text = "پیشخوان"
+        }
+    };
+
+    ViewBag.AdminBarCustom = Custom;
+
+}
+
+<vc:hero-slider></vc:hero-slider>
+<!-- About -->
+<section class="about section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-md-12 offset-lg-1">
+                <div class="content">
+                    <div class="section-subtitle">
+                       
+                        <vc:content id="1"></vc:content>
+                    </div>
+                    <div class="section-title text-end">
+                        <span>
+                            <vc:content id="2"></vc:content>
+                        </span>
+                        <vc:content id="3"></vc:content>
+                    </div>
+                    <p>
+                        <vc:content id="4"></vc:content>
+                    </p>
+                    <ul class="list-unstyled list">
+                        <li>
+                            <div class="list-icon">
+                                <span class="ti-check">
+                                </span>
+                            </div>
+                            <div class="list-text">
+                                <p>
+                                    <vc:content id="5"></vc:content>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list-icon">
+                                <span class="ti-check">
+                                </span>
+                            </div>
+                            <div class="list-text">
+                                <p>
+                                    <vc:content id="6"></vc:content>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                    <a class="button-4" href="/aboutus">
+                        درباره ما
+                        <span class="ti-arrow-top-right">
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6  col-md-12 mt-30">
+                <div class="item">
+
+                    <vc:content id="7" class="g-fluid" alt="معرفی کوواش"></vc:content>
+
+                    
+                    <div class="bottom-fade">
+                    </div>
+                    <div class="icon">
+                        <a class="vid arrow" href="@Model.Setting.IntroVideoUrl?.Trim('[', ']', '"')">
+                            <span class="ti-control-play">
+                            </span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <h4>
+                            تماشای ویدیو
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio -->
+<section class="portfolio section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center mb-20">
+                <div class="section-subtitle">
+                    <vc:content id="8"></vc:content>
+                    
+                </div>
+                <div class="section-title">
+                    <vc:content id="9"></vc:content>
+                </div>
+            </div>
+        </div>
+        <vc:product-index></vc:product-index>
+    </div>
+</section>
+
+<vc:video-intro></vc:video-intro>
+
+<vc:team-slider></vc:team-slider>
+
+<vc:articles-list></vc:articles-list>

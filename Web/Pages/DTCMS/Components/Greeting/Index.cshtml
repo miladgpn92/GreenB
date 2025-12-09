@@ -1,0 +1,20 @@
+﻿@model string
+@inject IStringLocalizer<ResourceLibrary.Panel.Common.Global.Global> GlobalLocalizer;
+
+<div class="flex justify-between">
+    <div>
+        <div class="  text-gray-800 text-lg font-semibold mb-2">
+            @GlobalLocalizer["DearUser"] ، @Model
+        </div>
+        <div class="  text-gray-600 text-xs font-normal  ">
+            @GlobalLocalizer["WelcomeText"]
+        </div>
+    </div>
+
+    <div class="h-7 bg-gray-800 rounded justify-end w-24 items-center flex px-1">
+
+        <div class=" text-white text-sm font-normal" id="clock__container"></div>
+
+        <span class="icon-Clock text-xl text-white rtl:mr-1 ltr:ml-1"></span>
+    </div>
+</div>

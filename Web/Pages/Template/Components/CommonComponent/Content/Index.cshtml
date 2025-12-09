@@ -1,0 +1,129 @@
+﻿@model Web.Pages.Template.Components.CommonComponent.Content.ContentViewModel
+
+@{
+    string contentType = Model.ContentItem?.Type ?? "text";
+    string contentValue = Model.ContentItem?.Value ?? "";
+    int contentId = Model.ContentItem?.Id ?? 0;
+    string contentClass = Model.Class ?? "";
+    string contentAttr = Model.Attr ?? "";
+    string contentTag = Model.Tag ?? "";
+}
+
+@if (Model.IsAdmin)
+{
+    <div class="editable-content-wrapper">
+        @if (contentType == "img")
+        {
+            <div class="editable-image">
+                <img src="@contentValue" alt="@Model.Alt" class="text-content @contentClass" @contentAttr data-id="@contentId" />
+                <div class="edit-controls-img">
+                    <span class="edit-icon" onclick="window.uploadImage(this)">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.49992 8.95833C6.23325 8.95833 5.20825 7.93333 5.20825 6.66667C5.20825 5.4 6.23325 4.375 7.49992 4.375C8.76659 4.375 9.79159 5.4 9.79159 6.66667C9.79159 7.93333 8.76659 8.95833 7.49992 8.95833ZM7.49992 5.625C6.92492 5.625 6.45825 6.09167 6.45825 6.66667C6.45825 7.24167 6.92492 7.70833 7.49992 7.70833C8.07492 7.70833 8.54159 7.24167 8.54159 6.66667C8.54159 6.09167 8.07492 5.625 7.49992 5.625Z" fill="white" />
+                            <path d="M12.5001 18.9587H7.50008C2.97508 18.9587 1.04175 17.0253 1.04175 12.5003V7.50032C1.04175 2.97533 2.97508 1.04199 7.50008 1.04199H10.8334C11.1751 1.04199 11.4584 1.32533 11.4584 1.66699C11.4584 2.00866 11.1751 2.29199 10.8334 2.29199H7.50008C3.65841 2.29199 2.29175 3.65866 2.29175 7.50032V12.5003C2.29175 16.342 3.65841 17.7087 7.50008 17.7087H12.5001C16.3417 17.7087 17.7084 16.342 17.7084 12.5003V8.33366C17.7084 7.99199 17.9917 7.70866 18.3334 7.70866C18.6751 7.70866 18.9584 7.99199 18.9584 8.33366V12.5003C18.9584 17.0253 17.0251 18.9587 12.5001 18.9587Z" fill="white" />
+                            <path d="M15 7.29194C14.6583 7.29194 14.375 7.00861 14.375 6.66694V1.66694C14.375 1.41694 14.525 1.18361 14.7583 1.09194C14.9917 1.00027 15.2583 1.05027 15.4417 1.22527L17.1083 2.89194C17.35 3.13361 17.35 3.53361 17.1083 3.77527C16.8667 4.01694 16.4667 4.01694 16.225 3.77527L15.625 3.17527V6.66694C15.625 7.00861 15.3417 7.29194 15 7.29194Z" fill="white" />
+                            <path d="M13.3334 3.95804C13.1751 3.95804 13.0168 3.89971 12.8918 3.77471C12.6501 3.53304 12.6501 3.13304 12.8918 2.89137L14.5584 1.22471C14.8001 0.98304 15.2001 0.98304 15.4418 1.22471C15.6834 1.46637 15.6834 1.86637 15.4418 2.10804L13.7751 3.77471C13.6501 3.89971 13.4918 3.95804 13.3334 3.95804Z" fill="white" />
+                            <path d="M2.22504 16.4163C2.02504 16.4163 1.82504 16.3163 1.70837 16.1413C1.51671 15.858 1.59171 15.4663 1.87504 15.2746L5.98337 12.5163C6.88337 11.9163 8.12504 11.983 8.94171 12.6746L9.21671 12.9163C9.63337 13.2746 10.3417 13.2746 10.75 12.9163L14.2167 9.94131C15.1 9.18298 16.4917 9.18298 17.3834 9.94131L18.7417 11.108C19 11.333 19.0334 11.7246 18.8084 11.9913C18.5834 12.2496 18.1834 12.283 17.925 12.058L16.5667 10.8913C16.15 10.533 15.45 10.533 15.0334 10.8913L11.5667 13.8663C10.6834 14.6246 9.29171 14.6246 8.40004 13.8663L8.12504 13.6246C7.74171 13.2996 7.10837 13.2663 6.68337 13.558L2.58337 16.3163C2.46671 16.383 2.34171 16.4163 2.22504 16.4163Z" fill="white" />
+                        </svg>
+
+
+                    </span>
+                    <input type="file" style="display: none;" accept="image/*" />
+                </div>
+            </div>
+        }
+        else if (contentType == "textarea" || contentType == "html")
+        {
+            <div class="editable-text" >
+                @if (!string.IsNullOrEmpty(contentTag))
+                {
+                    @Html.Raw($"<{contentTag} class=\"text-content {contentClass} {contentAttr} \" data-id=\"{contentId}\">{contentValue}</{contentTag}>")
+                }
+                else
+                {
+                    <div class="text-content {contentClass}" data-id="@contentId">@Html.Raw(contentValue)</div>
+                }
+                <textarea class="edit-input" style="display: none;"></textarea>
+                <div class="edit-controls">
+                    <span class="edit-icon" onclick="window.enableEdit(this)">
+                        <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.2678 1.73223L18.9749 1.02513L18.9749 1.02513L18.2678 1.73223ZM4.50006 19.0355V20.0355C4.76528 20.0355 5.01963 19.9301 5.20717 19.7426L4.50006 19.0355ZM1.00006 19.0355H6.10352e-05C6.10352e-05 19.5878 0.447776 20.0355 1.00006 20.0355L1.00006 19.0355ZM1.00006 15.4644L0.292954 14.7573C0.105418 14.9448 6.10352e-05 15.1992 6.10352e-05 15.4644H1.00006ZM15.4393 2.43934C16.0251 1.85355 16.9749 1.85355 17.5607 2.43934L18.9749 1.02513C17.608 -0.341709 15.392 -0.341709 14.0251 1.02513L15.4393 2.43934ZM17.5607 2.43934C18.1465 3.02513 18.1465 3.97487 17.5607 4.56066L18.9749 5.97487C20.3417 4.60804 20.3417 2.39196 18.9749 1.02513L17.5607 2.43934ZM17.5607 4.56066L3.79295 18.3284L5.20717 19.7426L18.9749 5.97487L17.5607 4.56066ZM4.50006 18.0355H1.00006V20.0355H4.50006V18.0355ZM14.0251 1.02513L0.292954 14.7573L1.70717 16.1715L15.4393 2.43934L14.0251 1.02513ZM6.10352e-05 15.4644V19.0355H2.00006V15.4644H6.10352e-05ZM12.5251 3.93934L16.0607 7.47487L17.4749 6.06066L13.9393 2.52513L12.5251 3.93934Z" fill="white" />
+                        </svg>
+                    </span>
+                    <span class="save-icon" style="display: none;" onclick="window.saveEdit(this)">
+                        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 7L5 11L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="cancel-icon" style="display: none;" onclick="window.cancelEdit(this)">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 13L13 1M1 1L13 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="editable-text" >
+                @if (!string.IsNullOrEmpty(contentTag))
+                {
+                    @Html.Raw($"<{contentTag} class=\"text-content {contentClass} {contentAttr} \" data-id=\"{contentId}\">{contentValue}</{contentTag}>")
+                }
+                else
+                {
+                    <span class="text-content @contentClass" {contentAttr} data-id="@contentId">@contentValue</span>
+                }
+                <input type="text" class="edit-input" style="display: none;" />
+                <div class="edit-controls">
+                    <span class="edit-icon" onclick="window.enableEdit(this)">
+                        <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.2678 1.73223L18.9749 1.02513L18.9749 1.02513L18.2678 1.73223ZM4.50006 19.0355V20.0355C4.76528 20.0355 5.01963 19.9301 5.20717 19.7426L4.50006 19.0355ZM1.00006 19.0355H6.10352e-05C6.10352e-05 19.5878 0.447776 20.0355 1.00006 20.0355L1.00006 19.0355ZM1.00006 15.4644L0.292954 14.7573C0.105418 14.9448 6.10352e-05 15.1992 6.10352e-05 15.4644H1.00006ZM15.4393 2.43934C16.0251 1.85355 16.9749 1.85355 17.5607 2.43934L18.9749 1.02513C17.608 -0.341709 15.392 -0.341709 14.0251 1.02513L15.4393 2.43934ZM17.5607 2.43934C18.1465 3.02513 18.1465 3.97487 17.5607 4.56066L18.9749 5.97487C20.3417 4.60804 20.3417 2.39196 18.9749 1.02513L17.5607 2.43934ZM17.5607 4.56066L3.79295 18.3284L5.20717 19.7426L18.9749 5.97487L17.5607 4.56066ZM4.50006 18.0355H1.00006V20.0355H4.50006V18.0355ZM14.0251 1.02513L0.292954 14.7573L1.70717 16.1715L15.4393 2.43934L14.0251 1.02513ZM6.10352e-05 15.4644V19.0355H2.00006V15.4644H6.10352e-05ZM12.5251 3.93934L16.0607 7.47487L17.4749 6.06066L13.9393 2.52513L12.5251 3.93934Z" fill="white" />
+                        </svg>
+                    </span>
+                    <span class="save-icon" style="display: none;" onclick="window.saveEdit(this)">
+                        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 7L5 11L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="cancel-icon" style="display: none;" onclick="window.cancelEdit(this)">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 13L13 1M1 1L13 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    @if (contentType == "img")
+    {
+        <img src="@contentValue" alt="@Model.Alt" class="@contentClass" @contentAttr />
+    }
+    else if (contentType == "textarea" || contentType == "html")
+    {
+        @if (!string.IsNullOrEmpty(contentTag))
+        {
+            @Html.Raw($"<{contentTag} class=\"{contentClass}\" {contentAttr}>{contentValue}</{contentTag}>")
+        }
+        else
+        {
+            <div class="@contentClass" @contentAttr>@Html.Raw(contentValue)</div>
+        }
+    }
+    else
+    {
+        @if (!string.IsNullOrEmpty(contentTag))
+        {
+            @Html.Raw($"<{contentTag} class=\"{contentClass}\" {contentAttr}>{contentValue}</{contentTag}>")
+        }
+        else
+        {
+            @contentValue
+        }
+    }
+}
+
+ 

@@ -1,0 +1,535 @@
+@import "./reset.scss";
+@import "./mixin.scss";
+@import "./variable.scss";
+@import "./dt-icon.scss";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "./cropper.scss";
+@import "./editorjs.scss";
+@import "./../components/layout/dashboard/style.scss";
+@import "swiper/swiper-bundle.css";
+@import "./leaflet.scss";
+@import "notyf/notyf.min.css";
+@import "./codemirror.scss";
+@import "./notyf.scss";
+@import "persian-datepicker/dist/css/persian-datepicker.css";
+@import "./datepicker.scss";
+@import "./ai.scss";
+@import "./tinymce.scss";
+@import 'microtip/microtip';
+@import "tom-select/dist/css/tom-select.min.css";
+
+@font-face {
+  font-family: yekanbakh;
+  font-style: normal;
+  font-weight: 100;
+  src: url("/wwwroot/DTCMS/assets/fonts/woff/YekanBakhFaNum-thin.woff")
+      format("woff"),
+    url("/wwwroot/DTCMS/assets/fonts/woff2/YekanBakhFaNum-Thin.woff2")
+      format("woff2");
+}
+
+@font-face {
+  font-family: yekanbakh;
+  font-style: normal;
+  font-weight: 300;
+  src: url("/wwwroot/DTCMS/assets/fonts/woff/YekanBakhFaNum-Light.woff")
+      format("woff"),
+    url("/wwwroot/DTCMS/assets/fonts/woff2/YekanBakhFaNum-Light.woff2")
+      format("woff2");
+}
+
+@font-face {
+  font-family: yekanbakh;
+  font-style: normal;
+  font-weight: normal;
+  src: url("/wwwroot/DTCMS/assets/fonts/woff/YekanBakhFaNum-Regular.woff")
+      format("woff"),
+    url("/wwwroot/DTCMS/assets/fonts/woff2/YekanBakhFaNum-Regular.woff2")
+      format("woff2");
+}
+
+@font-face {
+  font-family: yekanbakh;
+  font-style: normal;
+  font-weight: 600;
+  src: url("/wwwroot/DTCMS/assets/fonts/woff/YekanBakhFaNum-SemiBold.woff")
+      format("woff"),
+    url("/wwwroot/DTCMS/assets/fonts/woff2/YekanBakhFaNum-SemiBold.woff2")
+      format("woff2");
+}
+
+@font-face {
+  font-family: yekanbakh;
+  font-style: normal;
+  font-weight: bold;
+  src: url("/wwwroot/DTCMS/assets/fonts/woff/YekanBakhFaNum-Bold.woff")
+      format("woff"),
+    url("/wwwroot/DTCMS/assets/fonts/woff2/YekanBakhFaNum-Bold.woff2")
+      format("woff2");
+}
+
+@font-face {
+  font-family: yekanbakh;
+  font-style: normal;
+  font-weight: 800;
+  src: url("/wwwroot/DTCMS/assets/fonts/woff/YekanBakhFaNum-ExtraBold.woff")
+      format("woff"),
+    url("/wwwroot/DTCMS/assets/fonts/woff2/YekanBakhFaNum-ExtraBold.woff2")
+      format("woff2");
+}
+
+@font-face {
+  font-family: yekanbakh;
+  font-style: normal;
+  font-weight: 900;
+  src: url("/wwwroot/DTCMS/assets/fonts/woff/YekanBakhFaNum-Black.woff")
+      format("woff"),
+    url("/wwwroot/DTCMS/assets/fonts/woff2/YekanBakhFaNum-Black.woff2")
+      format("woff2");
+}
+
+@font-face {
+  font-family: yekanbakh;
+  font-style: normal;
+  font-weight: 950;
+  src: url("/wwwroot/DTCMS/assets/fonts/woff/YekanBakhFaNum-ExtraBlack.woff")
+      format("woff"),
+    url("/wwwroot/DTCMS/assets/fonts/woff2/YekanBakhFaNum-ExtraBlack.woff2")
+      format("woff2");
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+body {
+  margin: 0 !important;
+  font-size: 0.875;
+}
+
+body[dir="rtl"] {
+  font-family: yekanbakh;
+  direction: rtl;
+}
+
+body[dir="ltr"] {
+  font-family: "Poppins", sans-serif;
+  direction: ltr;
+}
+
+input {
+  padding-left: 15px;
+}
+:-webkit-input-placeholder {
+  text-align: right;
+}
+:-moz-placeholder {
+  text-align: right;
+}
+
+/*
+removes input type number arrows
+*/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield !important;
+}
+
+/*
+removes select arrow down
+*/
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("/wwwroot/DTCMS/assets/images/icon/arrowdown.svg") no-repeat;
+  background-position: left 5px top 50%;
+
+  padding-right: 15px;
+  &[dir="ltr"] {
+    background-position: right 5px top 50%;
+    padding-left: 15px;
+    text-align: left;
+  }
+}
+
+.direction__ltr {
+  direction: ltr !important;
+}
+.tool__tip__style {
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+:global(.tooltip) {
+  .custom-tooltip {
+    background-color: hotpink;
+    box-shadow: 0 1px 8px pink;
+  }
+}
+
+/* styles.css */
+
+/* Target the number input field and hide the increment and decrement arrows */
+input[type="number"] {
+  -moz-appearance: textfield !important; /* Firefox */
+}
+
+/* Target WebKit-based browsers (e.g., Chrome, Safari) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
+/* Remove arrows in other browsers (may not be necessary in newer browser versions) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-moz-inner-spin-button,
+input[type="number"]::-moz-outer-spin-button {
+  appearance: none !important;
+}
+
+.input-validation-error {
+  border: 1px solid rgb(220, 38, 38) !important;
+  outline: 1px solid rgb(220, 38, 38) !important;
+
+  &:focus {
+    border: 1px solid rgb(220, 38, 38) !important;
+    outline: 1px solid rgb(220, 38, 38) !important;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+.rounded__cropper {
+  .cropper-view-box,
+  .cropper-face {
+    border-radius: 50% !important;
+  }
+}
+.cropper-wrap-box {
+  background-color: #1f2937;
+}
+.cropper-modal {
+  background-color: #1f2937;
+  opacity: 0.6;
+}
+
+//input type range styles
+input[type="range"] {
+  -webkit-appearance: none;
+}
+input[type="range"]:focus {
+  outline: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 1px;
+  cursor: pointer;
+  animate: 0.2s;
+  background-color: white;
+  border-radius: 1px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 9999px;
+  background: #4f46e5;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -7px;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 1px;
+  cursor: pointer;
+  animate: 0.2s;
+  background-color: white;
+  border-radius: 1px;
+}
+input[type="range"]::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 9999px;
+  background: #4f46e5;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -7px;
+}
+input[type="range"]::-ms-track {
+  height: 1px;
+  cursor: pointer;
+  animate: 0.2s;
+  color: white;
+  border-radius: 1px;
+}
+
+input[type="range"]::-ms-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 9999px;
+  background: #4f46e5;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: 6px;
+}
+
+// bottom sheet Styles
+/* Copyright (c) 2022 Ivan Teplov */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --foreground: #000;
+  --divider: #dcdcdc;
+}
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  visibility: visible;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+.sheet[aria-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.sheet .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.sheet .contents {
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 1rem 1rem 0 0;
+
+  background: var(--background);
+
+  overflow-y: hidden;
+
+  --default-transitions: transform 0.5s, border-radius 0.5s;
+
+  transition: var(--default-transitions);
+  transform: translateY(0);
+
+  max-width: 510px;
+  max-height: 100vh;
+  height: 30vh;
+
+  box-sizing: border-box;
+}
+
+.sheet .contents:not(.not-selectable) {
+  transition: var(--default-transitions), height 0.5s;
+}
+
+.sheet .contents.fullscreen {
+  border-radius: 0;
+}
+
+.sheet[aria-hidden="true"] .contents {
+  transform: translateY(100%);
+}
+
+.sheet .controls {
+  display: flex;
+}
+
+.sheet .draggable-area {
+  padding: 1rem;
+  cursor: grab;
+}
+
+.sheet .draggable-thumb {
+  height: 0.25rem;
+  background: var(--divider);
+  border-radius: 0.125rem;
+}
+
+.sheet .close-sheet {
+  border: none;
+  padding: 0.7rem;
+}
+
+.sheet .body {
+  flex-grow: 1;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: auto;
+  gap: 1rem;
+
+  box-sizing: border-box;
+}
+.active__view {
+  stroke: #2563eb;
+}
+
+.audio {
+  display: flex;
+}
+
+/*
+*tinymce custom styles
+*/
+.tox-promotion-link {
+  display: none !important;
+}
+.tox-statusbar__branding {
+  display: none !important;
+}
+.mce-offscreen-selection {
+  display: none !important;
+}
+
+
+/// IOS Switch
+
+#toggles {
+    width: 60px;
+    text-align: center;
+    margin-right: 30px;
+}
+
+.ios-toggle, .ios-toggle:active {
+    position: absolute;
+    top: -5000px;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    border: none;
+    outline: none;
+}
+
+.checkbox-label {
+    display: block;
+    position: relative;
+    padding: 10px;
+ 
+    font-size: 12px;
+    line-height: 16px;
+    width: 100%;
+    height: 36px;
+    /*border-radius*/
+    -webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    border-radius: 18px;
+    background: #f8f8f8;
+    cursor: pointer;
+    font-size:0px;
+}
+
+.checkbox-label:before {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 1;
+    line-height: 34px;
+    text-indent: 40px;
+    height: 36px;
+    width: 36px;
+    /*border-radius*/
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    top: 0px;
+    left: 0px;
+    right: auto;
+    background: white;
+    /*box-shadow*/
+    -webkit-box-shadow: 0 3px 3px rgba(0,0,0,.2),0 0 0 2px #dddddd;
+    -moz-box-shadow: 0 3px 3px rgba(0,0,0,.2),0 0 0 2px #dddddd;
+    box-shadow: 0 3px 3px rgba(0,0,0,.2),0 0 0 2px #dddddd;
+    font-size: 13px;
+}
+
+.checkbox-label:after {
+    content: attr(data-off);
+    display: block;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 60px;
+    padding: 10px;
+    height: 100%;
+    width: 70px;
+    text-align: right;
+    color: #bfbfbf;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.ios-toggle:checked + .checkbox-label {
+    /*box-shadow*/
+    -webkit-box-shadow: inset 0 0 0 20px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
+    -moz-box-shadow: inset 0 0 0 20px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
+    box-shadow: inset 0 0 0 20px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
+}
+
+.ios-toggle:checked + .checkbox-label:before {
+    left: calc(100% - 36px);
+    /*box-shadow*/
+    -webkit-box-shadow: 0 0 0 2px transparent,0 3px 3px rgba(0,0,0,.3);
+    -moz-box-shadow: 0 0 0 2px transparent,0 3px 3px rgba(0,0,0,.3);
+    box-shadow: 0 0 0 2px transparent,0 3px 3px rgba(0,0,0,.3);
+}
+
+.ios-toggle:checked + .checkbox-label:after {
+    content: attr(data-on);
+    left: 60px;
+    width: 36px;
+}
+/* GREEN CHECKBOX */
+
+.ios-toggle + .checkbox-label {
+    /*box-shadow*/
+    -webkit-box-shadow: inset 0 0 0 0px rgba(19,191,17,1),0 0 0 2px #dddddd;
+    -moz-box-shadow: inset 0 0 0 0px rgba(19,191,17,1),0 0 0 2px #dddddd;
+    box-shadow: inset 0 0 0 0px rgba(19,191,17,1),0 0 0 2px #dddddd;
+}
+
+.ios-toggle:checked + .checkbox-label {
+    /*box-shadow*/
+    -webkit-box-shadow: inset 0 0 0 18px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
+    -moz-box-shadow: inset 0 0 0 18px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
+    box-shadow: inset 0 0 0 18px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
+}
+
+.ios-toggle:checked + .checkbox-label:after {
+    color: rgba(19,191,17,1);
+}
+/* RED CHECKBOX */

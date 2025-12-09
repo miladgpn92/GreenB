@@ -1,0 +1,68 @@
+@page
+@model SmsModel
+@inject IStringLocalizer<ResourceLibrary.Panel.Admin.Settings.Settings> Localizer;
+@inject IStringLocalizer<ResourceLibrary.Panel.Common.Global.Global> GlobalLocalizer;
+@{
+    List<SelectListItem> selectListItems = new List<SelectListItem>();
+    selectListItems.Add(new SelectListItem()
+            {
+                Text = Localizer["Title"],
+                Value = "/dtcms/settings"
+            });
+    selectListItems.Add(new SelectListItem()
+            {
+                Text = Localizer["SMSTitle"],
+                Value = "#"
+            });
+    ViewData["TitleList"] = selectListItems;
+    ViewData["Title"] = Localizer["Title"] + " " + Localizer["SMSTitle"];
+    Layout = "_DashLayout";
+    ViewBag.HasBottomSheetMenu = false;
+}
+
+ <main>
+
+
+    <h4 class="text-center mt-[130px]">
+        <span class="text-gray-800 text-6xl font-extrabold leading-[60px]">
+            @Model.SMSCredit
+        </span>
+        <span class="text-gray-800 text-xs font-light leading-none">
+            @Localizer["Toman"]
+        </span>
+    </h4>
+
+    <div class="  h-[38px] px-[17px] py-[9px] bg-emerald-400 rounded-md shadow justify-center items-center flex cursor-pointer mt-[40px]" data-sheet-control="increase__charge">
+        <div class="text-white text-sm font-normal  leading-tight">
+            @Localizer["IncreaseCredit"]
+        </div>
+    </div>
+
+
+
+    <dt:bottom-sheet id="increase__charge" min-height="50">
+        <form method="post">
+                <h5 class="  text-center text-gray-900 text-base font-semibold  leading-normal mb-3">
+                @Localizer["IncreaseCreditTitle"]
+                </h5>
+           
+            <div>
+                <dt:input-text asp-for="CreditAmount"></dt:input-text>
+            </div>
+
+            <div class="flex justify-between align-center mt-4">
+
+                <button type="submit" class="focus:outline-none text-white bg-emerald-400 hover:bg-emerald-400 focus:ring-4 focus:ring-emerald-100 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+                        @GlobalLocalizer["Submit" , ""]
+                </button>
+
+                <button type="button" data-sheet-dismiss class="cursor-pointer py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 close-sheet ">
+                    @GlobalLocalizer["Cancel"]
+                </button>
+            </div>
+        </form>
+      
+
+    </dt:bottom-sheet>
+
+</main>

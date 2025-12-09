@@ -1,0 +1,316 @@
+﻿@page
+@model SeoModel
+@inject IStringLocalizer<ResourceLibrary.Panel.Admin.Settings.Settings> Localizer;
+@inject IStringLocalizer<ResourceLibrary.Panel.Common.Global.Global> GlobalLocalizer;
+@{
+  List<SelectListItem> selectListItems = new List<SelectListItem>();
+  selectListItems.Add(new SelectListItem()
+      {
+        Text = Localizer["Title"],
+        Value = "/dtcms/settings"
+      });
+  selectListItems.Add(new SelectListItem()
+      {
+        Text = Localizer["SEOTitle"],
+        Value = "#"
+      });
+  ViewData["TitleList"] = selectListItems;
+  ViewData["Title"] = Localizer["Title"] + " " + Localizer["SEOTitle"];
+  Layout = "_DashLayout";
+  ViewBag.HasBottomSheetMenu = false;
+}
+
+
+<form method="post">
+  <input type="hidden" asp-for="SEOSetting.SeoList" id="seo__list__values" />
+
+  <h5 class="text-gray-700 text-sm font-normal leading-tight mb-3">@Localizer["SeoPageList"] </h5>
+
+
+  @foreach (var item in Model.Items)
+  {
+    <div class="w-full mb-3">
+      <div class=" px-4 py-4 bg-white rounded-md shadow justify-between items-center flex cursor-pointer"
+        data-sheet-control="more__item__@item.Id">
+
+
+        <div class="flex-col justify-start items-start flex">
+          <h4 class=" text-gray-800 text-sm font-bold  leading-tight mb-2 direction__ltr">
+            <dt:base-url></dt:base-url>@item.Path
+          </h4>
+
+          <h5 class="text-gray-500 text-xs font-normal leading-3  seo__title__@item.Id">
+            @item.SEOTitle
+          </h5>
+        </div>
+
+
+
+        <div class="justify-center items-center gap-2 flex">
+          <span class="icon-Pencil text-xl text-gray-700"></span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <dt:bottom-sheet id="more__item__@item.Id" min-height="93">
+
+      <div class="h-screen" onclick="checkSeoImage('media__input__value__@item.Id')">
+        <input type="hidden" value="@item.Id" id="seo__item__@item.Id" />
+
+        <div class="mb-10">
+          <h4 class="text-gray-700 text-sm font-normal leading-tight mb-3">
+            @Localizer["Path"]
+          </h4>
+
+          <p class=" text-gray-800 text-base font-semibold mb-3 leading-normal direction__ltr">
+            <dt:base-url></dt:base-url>@item.Path
+          </p>
+
+
+        </div>
+
+        <div class="mb-10">
+          <dt:input-text asp-for="@item.SEOTitle" onchange="updateSeoObjects('SeoTitle',@item.Id)" name="@item.SEOTitle"
+            target-class="seo__title__@item.Id" has-slug="false" has-counter="true"
+            counter-target="seo__title__counter__@item.Id"></dt:input-text>
+          <div class="flex items-center justify-between w-full mt-2">
+            <span class="font-light text-xs text-gray-700 w-full inline-block text-right ltr:text-left">
+              @GlobalLocalizer["SEOTitleMaxLenght"]
+            </span>
+            <span class="font-light text-xs text-gray-700 w-full inline-block text-left ltr:text-right">
+              <b> <span class="seo__title__counter__@item.Id">0</span>/60</b>
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <dt:text-area asp-for="@item.SEODesc" onchange="updateSeoObjects('SeoDesc',@item.Id)"
+            target-class="seo__desc__@item.Id" has-slug="false" has-counter="true"
+            counter-target="seo__desc__counter__@item.Id"></dt:text-area>
+          <div class="flex items-center justify-between w-full mt-2">
+            <span class="font-light text-xs text-gray-700 w-full inline-block text-right ltr:text-left">
+              @GlobalLocalizer["SEODescMaxLenght"]
+            </span>
+            <span class="font-light text-xs text-gray-700 w-full inline-block text-left ltr:text-right">
+              <b> <span class="seo__desc__counter__@item.Id">0</span>/160 </b>
+            </span>
+          </div>
+        </div>
+        <div class="mb-8">
+          <div>
+            <input data-parent-id="media__cropperjs__container__@item.Id" value=""
+              onchange="updateSeoObjects('SeoImage',@item.Id,this)" type="hidden" class="media__input__value__@item.Id" />
+            <div
+              class="relative cursor-pointer bg-gray-100 border-[2px] border-gray-200 border-dashed   h-[120px] w-[344px] rounded-md flex justify-center items-center text-center mx-auto flex-col">
+              <input type="file" accept="image/*" class="z-[2] opacity-0 w-full h-full absolute"
+                oninput="initMediaCropper('media__cropperjs__container__@item.Id')"
+                data-sheet-control="media__@item.Id" />
+              <svg class="mb-1" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M28 8H12C10.9391 8 9.92172 8.42143 9.17157 9.17157C8.42143 9.92172 8 10.9391 8 12V32M8 32V36C8 37.0609 8.42143 38.0783 9.17157 38.8284C9.92172 39.5786 10.9391 40 12 40H36C37.0609 40 38.0783 39.5786 38.8284 38.8284C39.5786 38.0783 40 37.0609 40 36V28M8 32L17.172 22.828C17.9221 22.0781 18.9393 21.6569 20 21.6569C21.0607 21.6569 22.0779 22.0781 22.828 22.828L28 28M40 20V28M40 28L36.828 24.828C36.0779 24.0781 35.0607 23.6569 34 23.6569C32.9393 23.6569 31.9221 24.0781 31.172 24.828L28 28M28 28L32 32M36 8H44M40 4V12M28 16H28.02"
+                  stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <div class="font-normal text-sm text-indigo-600">انتخاب تصویر شاخص</div>
+
+
+              <svg onclick="handleMediaRemove('media__cropperjs__container__@item.Id')" id="media__remove__btn__@item.Id"
+                class="hidden cursor-pointer z-[3] absolute top-2 right-2" width="17" height="17" viewBox="0 0 17 17"
+                fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8.40517" cy="8.40517" r="8.40517" fill="#DC2626" />
+                <path
+                  d="M12.2716 6.22037L11.8342 12.344C11.7965 12.8718 11.3573 13.2807 10.8281 13.2807H6.65468C6.12551 13.2807 5.68632 12.8718 5.64862 12.344L5.21122 6.22037M7.73277 8.23761V11.2635M9.75001 8.23761V11.2635M10.2543 6.22037V4.70744C10.2543 4.42891 10.0285 4.20312 9.75001 4.20312H7.73277C7.45425 4.20312 7.22846 4.42891 7.22846 4.70744V6.22037M4.70691 6.22037H12.7759"
+                  stroke="white" stroke-width="1.34483" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <img class="absolute w-full h-full object-cover z-[1]" id="media__cropper__preview__@item.Id" />
+              <div id="media__preview__overlay__@item.Id"
+                class=" hidden z-[0] bg-gray-700 absolute h-full w-full opacity-50 rounded-md">
+
+                <svg aria-hidden="true" id="media__preview__loading__@item.Id"
+                  class="hidden absolute bottom-2 right-2    w-8 h-8 mr-2 text-transparent animate-spin dark:text-gray-600 fill-white"
+                  viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor" />
+                  <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill" />
+                </svg>
+                <div class="absolute bottom-2 left-2 text-white" id="media__percentage__view__@item.Id">0%</div>
+
+
+
+              </div>
+              <div id="media__progress__bar__@item.Id" dir="ltr"
+                class="z-[3] hidden absolute bottom-0 w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-700">
+                <div class="bg-green-500 h-1.5 rounded-full" style="width: 33%">
+                </div>
+              </div>
+              <div class="hidden " id="media__retry__button__@item.Id">
+                <svg onclick="handleMediaUpload()" class="z-[4]  cursor-pointer absolute bottom-2 left-10" width="24"
+                  height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <mask id="mask0_1250_32739__@item.Id" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
+                    width="24" height="24">
+                    <rect width="24" height="24" fill="#D9D9D9" />
+                  </mask>
+                  <g mask="url(#mask0_1250_32739__@item.Id)">
+                    <path
+                      d="M12 22C10.75 22 9.57933 21.7627 8.488 21.288C7.396 20.8127 6.446 20.1707 5.638 19.362C4.82933 18.554 4.18733 17.604 3.712 16.512C3.23733 15.4207 3 14.25 3 13H5C5 14.95 5.67933 16.604 7.038 17.962C8.396 19.3207 10.05 20 12 20C13.95 20 15.604 19.3207 16.962 17.962C18.3207 16.604 19 14.95 19 13C19 11.05 18.3207 9.39567 16.962 8.037C15.604 6.679 13.95 6 12 6H11.85L13.4 7.55L12 9L8 5L12 1L13.4 2.45L11.85 4H12C13.25 4 14.421 4.23767 15.513 4.713C16.6043 5.18767 17.5543 5.829 18.363 6.637C19.171 7.44567 19.8127 8.39567 20.288 9.487C20.7627 10.579 21 11.75 21 13C21 14.25 20.7627 15.4207 20.288 16.512C19.8127 17.604 19.171 18.554 18.363 19.362C17.5543 20.1707 16.6043 20.8127 15.513 21.288C14.421 21.7627 13.25 22 12 22Z"
+                      fill="white" />
+                  </g>
+                </svg>
+                <svg onclick="handleMediaRemove('media__cropperjs__container__@item.Id')"
+                  class=" z-[4]  cursor-pointer absolute bottom-2 left-2" width="25" height="25" viewBox="0 0 25 25"
+                  fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12.5" cy="12.5" r="12.5" fill="#DC2626" />
+                  <path
+                    d="M18.25 9.25L17.5995 18.3569C17.5434 19.1418 16.8903 19.75 16.1033 19.75H9.89668C9.10972 19.75 8.45656 19.1418 8.40049 18.3569L7.75 9.25M11.5 12.25V16.75M14.5 12.25V16.75M15.25 9.25V7C15.25 6.58579 14.9142 6.25 14.5 6.25H11.5C11.0858 6.25 10.75 6.58579 10.75 7V9.25M7 9.25H19"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="seo__viewer flex flex-col items-start w-full rounded-md p-4 bg-gray-50 leading-6">
+          <svg width="74" height="24" viewBox="0 0 74 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M9.24011 8.19V10.65H15.1201C14.9401 12.03 14.4801 13.04 13.7801 13.75C12.9201 14.61 11.5801 15.55 9.24011 15.55C5.62011 15.55 2.79011 12.63 2.79011 9.01C2.79011 5.39 5.62011 2.47 9.24011 2.47C11.1901 2.47 12.6201 3.24 13.6701 4.23L15.4001 2.5C13.9401 1.08 11.9801 0 9.24011 0C4.28011 0 0.110107 4.04 0.110107 9C0.110107 13.96 4.28011 18 9.24011 18C11.9201 18 13.9401 17.12 15.5201 15.48C17.1401 13.86 17.6501 11.57 17.6501 9.73C17.6501 9.16 17.6101 8.63 17.5201 8.19H9.24011Z"
+              fill="#4285F4" />
+            <path
+              d="M24.9999 6.19043C21.7899 6.19043 19.1699 8.63043 19.1699 12.0004C19.1699 15.3404 21.7899 17.8104 24.9999 17.8104C28.2099 17.8104 30.8299 15.3504 30.8299 12.0004C30.8299 8.63043 28.2099 6.19043 24.9999 6.19043ZM24.9999 15.5204C23.2399 15.5204 21.7199 14.0704 21.7199 12.0004C21.7199 9.91043 23.2399 8.48043 24.9999 8.48043C26.7599 8.48043 28.2799 9.91043 28.2799 12.0004C28.2799 14.0704 26.7599 15.5204 24.9999 15.5204Z"
+              fill="#EA4335" />
+            <path
+              d="M53.58 7.49043H53.49C52.92 6.81043 51.82 6.19043 50.43 6.19043C47.53 6.19043 45 8.72043 45 12.0004C45 15.2604 47.53 17.8104 50.43 17.8104C51.82 17.8104 52.92 17.1904 53.49 16.4904H53.58V17.3004C53.58 19.5204 52.39 20.7104 50.48 20.7104C48.92 20.7104 47.95 19.5904 47.55 18.6404L45.33 19.5604C45.97 21.1004 47.66 22.9904 50.48 22.9904C53.47 22.9904 56 21.2304 56 16.9404V6.49043H53.58V7.49043ZM50.65 15.5204C48.89 15.5204 47.55 14.0204 47.55 12.0004C47.55 9.95043 48.89 8.48043 50.65 8.48043C52.39 8.48043 53.75 9.98043 53.75 12.0204C53.76 14.0504 52.39 15.5204 50.65 15.5204Z"
+              fill="#4285F4" />
+            <path
+              d="M37.9999 6.19043C34.7899 6.19043 32.1699 8.63043 32.1699 12.0004C32.1699 15.3404 34.7899 17.8104 37.9999 17.8104C41.2099 17.8104 43.8299 15.3504 43.8299 12.0004C43.8299 8.63043 41.2099 6.19043 37.9999 6.19043ZM37.9999 15.5204C36.2399 15.5204 34.7199 14.0704 34.7199 12.0004C34.7199 9.91043 36.2399 8.48043 37.9999 8.48043C39.7599 8.48043 41.2799 9.91043 41.2799 12.0004C41.2799 14.0704 39.7599 15.5204 37.9999 15.5204Z"
+              fill="#FBBC05" />
+            <path d="M58 0.240234H60.51V17.8102H58V0.240234Z" fill="#34A853" />
+            <path
+              d="M68.26 15.5204C66.96 15.5204 66.04 14.9304 65.44 13.7604L73.21 10.5504L72.95 9.89043C72.47 8.59043 70.99 6.19043 67.98 6.19043C64.99 6.19043 62.5 8.54043 62.5 12.0004C62.5 15.2604 64.96 17.8104 68.26 17.8104C70.92 17.8104 72.46 16.1804 73.1 15.2404L71.12 13.9204C70.46 14.8804 69.56 15.5204 68.26 15.5204ZM68.08 8.37043C69.11 8.37043 69.99 8.90043 70.28 9.65043L65.03 11.8204C65.03 9.38043 66.76 8.37043 68.08 8.37043Z"
+              fill="#EA4335" />
+          </svg>
+          <a dir="ltr" href="#" class="break-words w-full font-light text-xs text-blue-600 mt-4 mb-2">
+            <dt:base-url></dt:base-url>@item.Path<span class="page__slug"></span>
+          </a>
+          <h3 class="font-bold text-sm seo__title__@item.Id break-words w-full"></h3>
+          <p class="break-words seo__desc__@item.Id font-light text-xs text-gray-600 text-justify w-full">
+          </p>
+        </div>
+
+
+        <div class="flex items-center justify-between w-full mt-9">
+
+          <span data-sheet-dismiss
+            class="cursor-pointer py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 close-sheet ">
+            @GlobalLocalizer["Close"]
+          </span>
+        </div>
+      </div>
+
+
+    </dt:bottom-sheet>
+    <div id="media__@item.Id" data-min-height="100" data-not-dragable="true" class="sheet z-50" aria-hidden="true"
+      role="dialog">
+      <!-- Dark background for the sheet -->
+      <div class="overlay bg-gray-800 opacity-75 w-full"></div>
+      <!-- The sheet itself -->
+      <div class="contents">
+        <!-- Sheet controls -->
+        <header class="controls bg-white !hidden">
+          <!-- Button to close the sheet -->
+          <button data-sheet-dismiss class="close-sheet ml-auto w-2" type="button"
+            title="Close the sheet">&times;</button>
+          <!-- The thing to drag if you want to resize the sheet -->
+          <div class="draggable-area w-full flex justify-center">
+            <div class="draggable-thumb w-12"></div>
+          </div>
+        </header>
+
+        <!-- Body of the sheet -->
+        <main class="body bg-gray-800 px-0">
+
+
+          <div id="media__cropperjs__container__@item.Id" data-preview-target="media__cropper__preview__@item.Id"
+            data-retry-target="media__retry__button__@item.Id" data-progress-target="media__progress__bar__@item.Id"
+            data-remove-target="media__remove__btn__@item.Id" data-percentage-target="media__percentage__view__@item.Id"
+            data-overlay-target="media__preview__overlay__@item.Id"
+            data-loading-target="media__preview__loading__@item.Id" data-max-size="80000" data-max-height="1024"
+            data-aspect-ratio="16/9" data-input-target="media__input__value__@item.Id"
+            class="relative pt-16  min-w-[360px] hidden">
+
+            <div onclick="setMediaCompressStatus()"
+              class="media__compressor__status cursor-pointer absolute top-4 left-2 ltr:right-2  bg-green-100 h-5 min-w-[122px] w-fit px-2 py-0.5 flex justify-start rounded-md">
+              <div class=" mt-[1px]">
+                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M10.5243 3.17574C10.7586 3.41005 10.7586 3.78995 10.5243 4.02426L5.72431 8.82426C5.49 9.05858 5.1101 9.05858 4.87578 8.82426L2.47578 6.42426C2.24147 6.18995 2.24147 5.81005 2.47578 5.57574C2.7101 5.34142 3.09 5.34142 3.32431 5.57574L5.30005 7.55147L9.67578 3.17574C9.9101 2.94142 10.29 2.94142 10.5243 3.17574Z"
+                    fill="#34D399" />
+                </svg>
+              </div>
+              <div class="text-xs font-normal text-green-800 mx-0.5">فشرده سازی شده</div>
+            </div>
+
+            <div onclick="setMediaCompressStatus()"
+              class="hidden media__compressor__status cursor-pointer absolute top-4 left-2 ltr:right-2 bg-yellow-100 h-5 min-w-[122px] w-fit px-2 py-0.5 flex justify-start rounded-md">
+              <div class="mt-[1px]">
+                <svg class="svg-icon"
+                  style="width: 0.8em; height: 0.8em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+                  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M1001.661867 796.544c48.896 84.906667 7.68 157.013333-87.552 157.013333H110.781867c-97.834667 0-139.050667-69.504-90.112-157.013333l401.664-666.88c48.896-87.552 128.725333-87.552 177.664 0l401.664 666.88zM479.165867 296.533333v341.333334a32 32 0 1 0 64 0v-341.333334a32 32 0 1 0-64 0z m0 469.333334v42.666666a32 32 0 1 0 64 0v-42.666666a32 32 0 1 0-64 0z"
+                    fill="#FAAD14" />
+                </svg>
+              </div>
+              <div class="text-xs font-normal text-yellow-800 mx-0.5">سایز اصلی</div>
+            </div>
+
+            <div class="bg-gray-800 px-16 pb-12 pt-5 flex flex-col justify-between h-fit">
+              <div class="flex w-full items-center my-6">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M4 16L8.58579 11.4142C9.36683 10.6332 10.6332 10.6332 11.4142 11.4142L16 16M14 14L15.5858 12.4142C16.3668 11.6332 17.6332 11.6332 18.4142 12.4142L20 14M14 8H14.01M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <input style="direction: ltr" type="range" name="" id="rangeInput" class="w-full mx-1 p-0 h-0.5" min="0"
+                  max="1" step="0.01" value="0" oninput="handleMediaZoom()" />
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M2.66663 10.6665L5.72382 7.60931C6.24452 7.08861 7.08874 7.08861 7.60944 7.60931L10.6666 10.6665M9.33329 9.33317L10.3905 8.27598C10.9112 7.75528 11.7554 7.75528 12.2761 8.27598L13.3333 9.33317M9.33329 5.33317H9.33996M3.99996 13.3332H12C12.7363 13.3332 13.3333 12.7362 13.3333 11.9998V3.99984C13.3333 3.26346 12.7363 2.6665 12 2.6665H3.99996C3.26358 2.6665 2.66663 3.26346 2.66663 3.99984V11.9998C2.66663 12.7362 3.26358 13.3332 3.99996 13.3332Z"
+                    stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="flex w-full justify-between items-center">
+                <svg data-sheet-dismiss onclick="handleMediaCrop()" class="cursor-pointer" width="48" height="48"
+                  viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 26L18 34L38 14" stroke="#10B981" stroke-width="4" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <svg data-sheet-dismiss class="cursor-pointer" width="41" height="42" viewBox="0 0 41 42" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.25 31.25L30.75 10.75M10.25 10.75L30.75 31.25" stroke="#DC2626" stroke-width="3.41667"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+
+            </div>
+          </div>
+
+        </main>
+
+      </div>
+    </div>
+  }
+
+  <button type="button"
+    class="text-center w-full text-white bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:bg-green-500 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex dark:focus:ring-[#3b5998]/55  mb-2 items-center flex justify-center">
+    @GlobalLocalizer["SaveChanges"]
+  </button>
+
+</form>

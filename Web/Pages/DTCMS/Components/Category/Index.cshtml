@@ -1,0 +1,82 @@
+﻿@model VCCategoryModel
+@inject IStringLocalizer<ResourceLibrary.Panel.Admin.Article.Article> Localizer;
+@inject IStringLocalizer<ResourceLibrary.Panel.Admin.ArticleCategory.ArticleCategory> LocalizerArticleCategory;
+@inject IStringLocalizer<ResourceLibrary.Panel.Common.Global.Global> GlobalLocalizer;
+
+<div class="mb-6" >
+
+    <div id="category__list__value" class="mt-1 relative">
+        <div class="bg-red-500 absolute h-full w-full opacity-0 z-10 mt-0.5 cursor-pointer"  data-sheet-control="category__list"></div>
+        <dt:input-text 
+      
+            class="appearance-none block w-full px-3  py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  text-right ltr:text-left"
+            placeholder="" asp-for="VCCategoryTitle" readonly></dt:input-text>
+
+    </div>
+
+    <div class="mt-[-20px]">
+
+
+        <dt:input-text asp-for="VCCategoryId" no-label="true"
+            class="opacity-0 h-0 p-0 m-0 category__value"></dt:input-text>
+    </div>
+</div>
+
+
+
+<dt:bottom-sheet id="category__list" min-height="90" disable-drag="false">
+    <div data-route="@Model.ApiName" data-cat-input="category__list__value" data-cat-value="category__value"
+        data-generate-cat>
+        @* generate it when nothing found*@
+
+
+        <div class="relative z-10 rtl:left-0 ltr:right-0">
+            <button class="absolute top-2 z-30 ltr:right-4 rtl:left-4">
+                <span class="icon-Search text-xl text-gray-500"></span>
+            </button>
+            <input id="search__input" type="text" placeholder="@GlobalLocalizer["Search"]"
+                class="ltr:text-left rtl:text-right appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm z-20 relative">
+        </div>
+        <div class="nothig__found">
+            <div class="flex flex-col justify-center pt-6 text-center">
+                @GlobalLocalizer["NothingFound"]
+            </div>
+        </div>
+        <div class="nothing__created  hidden">
+            <div class=" flex items-center justify-center flex-col mt-10">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M18 26H30H18ZM24 20V32V20ZM6 34V14C6 12.9391 6.42143 11.9217 7.17157 11.1716C7.92172 10.4214 8.93913 10 10 10H22L26 14H38C39.0609 14 40.0783 14.4214 40.8284 15.1716C41.5786 15.9217 42 16.9391 42 18V34C42 35.0609 41.5786 36.0783 40.8284 36.8284C40.0783 37.5786 39.0609 38 38 38H10C8.93913 38 7.92172 37.5786 7.17157 36.8284C6.42143 36.0783 6 35.0609 6 34Z"
+                        stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <p class="font-normal text-sm leading-5 mb-2 mt-6 text-gray-900">
+                    @GlobalLocalizer["NothingPosted"]
+                </p>
+                <span class="font-normal text-sm leading-5 mb-8 text-gray-500">
+                    @GlobalLocalizer["CreateFirst", Localizer["Title"]]
+                </span>
+                <span data-sheet-control="create__category"
+                    class="text-base text-blue-600 leading-6 border-dashed p-1 border-b-[1px] border-b-blue-600 cursor-pointer">
+                    @GlobalLocalizer["Add"]
+                </span>
+            </div>
+        </div>
+        <div class="search__result">
+            <ul class=" mt-6 pb-[42px]" data-sheet-dismiss></ul>
+            <div class="absolute bottom-0 right-0 bg-white w-[100%] text-center py-4">
+                <span data-sheet-control="create__category"
+                    class="cursor-pointer text-base text-blue-600 leading-6 border-dashed p-1 border-b-[1px] border-b-blue-600">
+                    @GlobalLocalizer["Add"]
+                </span>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</dt:bottom-sheet>
+
+<dt:bottom-sheet id="create__category" min-height="38" disable-drag="false">
+    <vc:category-maker page-title=" دسته بندی"></vc:category-maker>
+</dt:bottom-sheet>

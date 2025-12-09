@@ -1,0 +1,397 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Web</name>
+    </assembly>
+    <members>
+        <member name="M:Web.Api.AI.AIController.Chat(SharedModels.Dtos.Shared.AIRequestModel)">
+            <summary>
+            گفتگو با هوش مصنوعی
+            </summary>
+        </member>
+        <member name="M:Web.Api.AI.AIController.GetCredit">
+            <summary>
+            دریافت اعتبار باقیمانده حساب هوش مصنوعی
+            </summary>
+        </member>
+        <member name="M:Web.Api.AI.AIController.SaveConversation(SharedModels.Dtos.Shared.AIConversationHistoryDto,System.Threading.CancellationToken)">
+            <summary>
+            ذخیره گفتگو
+            </summary>
+        </member>
+        <member name="M:Web.Api.AI.AIController.GetConversations">
+            <summary>
+            دریافت تاریخچه گفتگوهای کاربر
+            </summary>
+        </member>
+        <member name="M:Web.Api.AI.AIController.GetModels">
+            <summary>
+            لیست مدل ها
+            </summary>
+        </member>
+        <member name="M:Web.Api.AuthController.CreateRolesProject(System.Threading.CancellationToken)">
+            <summary>
+            Creates roles and adds an admin user to the role.
+            </summary>
+            <returns>
+            Returns an OK response if successful.
+            </returns>
+        </member>
+        <member name="M:Web.Api.AuthController.Login(SharedModels.TokenRequest,System.Threading.CancellationToken)">
+            <summary>
+            Generates a JWT token for the user based on the provided username and password.
+            </summary>
+            <param name="tokenRequest">The token request containing the username and password.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A JsonResult containing the generated JWT token.
+            </returns>
+        </member>
+        <member name="M:Web.Api.AuthController.AccountVerification(SharedModels.Dtos.AccountConfirmationDto,System.Threading.CancellationToken)">
+            <summary>
+            Verifies the account with the given username and verification code.
+            </summary>
+            <param name="model">The account confirmation data.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The JWT token if the account is verified.</returns>
+        </member>
+        <member name="M:Web.Api.AuthController.SendCode(SharedModels.Dtos.AuthDto,System.Threading.CancellationToken)">
+            <summary>
+            Sends a validation code to the user. it use for Register and OTP Authentication
+            </summary>
+            <param name="model">The authentication data transfer object.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Api.AuthController.RefreshToken(SharedModels.Dtos.RefreshTokenDto,System.Threading.CancellationToken)">
+            <summary>
+            Refreshes the token.
+            </summary>
+            <param name="model">The model.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The refreshed token.
+            </returns>
+        </member>
+        <member name="M:Web.Api.AuthController.SetPassword(SharedModels.Dtos.SetPassword,System.Threading.CancellationToken)">
+            <summary>
+            Sets the password for the specified user.
+            </summary>
+            <param name="model">The model containing the new password.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Web.Api.AuthController.IsAuthenticated">
+            <summary>
+            Checks if the user is authenticated and returns an OK result.
+            </summary>
+            <returns>OK result if the user is authenticated.</returns>
+        </member>
+        <member name="M:Web.Api.Filemanager.FilemanagerController.CreateFolder(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new folder with the specified name.
+            </summary>
+            <param name="FolderName">The name of the folder to be created.</param>
+            <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+            <returns>Returns an Ok result if the folder was created successfully, or a BadRequest result if the folder could not be created.</returns>
+        </member>
+        <member name="M:Web.Api.Filemanager.FilemanagerController.GetFiles(SharedModels.Dtos.GetFileViewModel,System.Threading.CancellationToken)">
+            <summary>
+            Gets the files from the filemanager service.
+            </summary>
+            <param name="model">The GetFileViewModel model.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            Returns an Ok result with the model if successful, otherwise a BadRequest result with the message.
+            </returns>
+        </member>
+        <member name="M:Web.Api.Filemanager.FilemanagerController.GetFolders(SharedModels.Dtos.GetFolderViewModel,System.Threading.CancellationToken)">
+            <summary>
+            GetFolders method is used to get the folders from the filemanager service.
+            </summary>
+            <param name="model">GetFolderViewModel object</param>
+            <param name="cancellationToken">CancellationToken object</param>
+            <returns>
+            Returns Ok result with model object if success, else returns BadRequest with error message.
+            </returns>
+        </member>
+        <member name="M:Web.Api.Filemanager.FilemanagerController.Uplaod(SharedModels.Dtos.UploadMultiFile,System.Threading.CancellationToken)">
+            <summary>
+            Uploads multiple files to the server.
+            </summary>
+            <param name="model">The model containing the files to be uploaded.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            Returns an OkResult if the upload was successful, or a BadRequestResult if the upload failed.
+            </returns>
+        </member>
+        <member name="M:Web.Api.Filemanager.FilemanagerController.RemoveFiles(SharedModels.Dtos.RemoveFileModel,System.Threading.CancellationToken)">
+            <summary>
+            Removes files from the specified filepath.
+            </summary>
+            <param name="model">The model containing the filepath.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An IActionResult indicating the success or failure of the operation.</returns>
+        </member>
+        <member name="M:Web.Api.Filemanager.FilemanagerController.RemoveFolder(SharedModels.Dtos.RemoveFolderModel,System.Threading.CancellationToken)">
+            <summary>
+            Removes a folder from the file system.
+            </summary>
+            <param name="model">The model containing the folder path.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An IActionResult indicating the success or failure of the operation.</returns>
+        </member>
+        <member name="M:Web.Api.Setting.SettingController.GetSetting(Common.Enums.CmsLanguage)">
+            <summary>
+            Gets the setting for the specified language.
+            </summary>
+            <param name="lang">The language.</param>
+            <returns>The setting for the specified language.</returns>
+        </member>
+        <member name="M:Web.Api.Setting.SettingController.GetGlobalSetting">
+            <summary>
+            Gets the global setting.
+            </summary>
+            <returns>The global setting.</returns>
+        </member>
+        <member name="M:Web.Api.Setting.SettingController.SetPublicSetting(SharedModels.Dtos.PublicSetting,Common.Enums.CmsLanguage)">
+            <summary>
+            Sets the public setting.
+            </summary>
+            <param name="publicSetting">The public setting.</param>
+            <param name="lang">The language.</param>
+            <returns>
+            Returns an action result.
+            </returns>
+        </member>
+        <member name="M:Web.Api.Setting.SettingController.SetAddressCallSetting(SharedModels.Dtos.AddressCallSetting,Common.Enums.CmsLanguage)">
+            <summary>
+            Sets the address call setting.
+            </summary>
+            <param name="addressCallSetting">The address call setting.</param>
+            <param name="lang">The language.</param>
+            <returns>The action result.</returns>
+        </member>
+        <member name="M:Web.Api.Setting.SettingController.SetSEOSetting(System.String,Common.Enums.CmsLanguage)">
+            <summary>
+            Sets the SEO setting for the specified language.
+            </summary>
+            <param name="list">The list of SEO settings.</param>
+            <param name="lang">The language.</param>
+            <returns>The result of the operation.</returns>
+        </member>
+        <member name="M:Web.Api.Setting.SettingController.SetEmailSetting(SharedModels.Dtos.EmailSetting)">
+            <summary>
+            Sets the email setting.
+            </summary>
+            <param name="emailSetting">The email setting.</param>
+            <returns>
+            Returns an action result.
+            </returns>
+        </member>
+        <member name="M:Web.Api.Setting.SettingController.SetSocialSetting(SharedModels.Dtos.SocialSetting)">
+            <summary>
+            Sets the social setting.
+            </summary>
+            <param name="socialSetting">The social setting.</param>
+            <returns>
+            Returns an action result based on the success of the operation.
+            </returns>
+        </member>
+        <member name="M:Web.Api.Setting.SettingController.SetInjectCodeSetting(SharedModels.Dtos.InjectSetting)">
+            <summary>
+            Sets the inject code setting.
+            </summary>
+            <param name="injectSetting">The inject setting.</param>
+            <returns>The result of the action.</returns>
+        </member>
+        <member name="M:Web.Api.Setting.SettingController.SendSMS(SharedModels.Dtos.SendSMSDto)">
+            <summary>
+            Sends an SMS to the specified phone number.
+            </summary>
+            <param name="model">The model containing the phone number and text of the SMS.</param>
+            <returns>
+            Returns an OkResult if the SMS was sent successfully, or a BadRequestResult if the SMS failed to send.
+            </returns>
+        </member>
+        <member name="M:Web.Api.Setting.SettingController.IncreseSMSCharge(System.Int32)">
+            <summary>
+            IncreseSMSCharge increases the SMS charge by the given amount.
+            </summary>
+            <param name="Amount">The amount to increase the SMS charge by.</param>
+            <returns>
+            Returns an Ok response with the updated SMS charge if successful, otherwise a BadRequest response with the error message.
+            </returns>
+        </member>
+        <member name="M:Web.Api.Setting.SettingController.ValidateSMSCharge(System.Int32,System.Int32)">
+            <summary>
+            Validates the SMS charge for the given amount and id.
+            </summary>
+            <returns>
+            Returns an OK response if the validation is successful, otherwise returns a BadRequest response with the error description.
+            </returns>
+        </member>
+        <member name="M:Web.Api.Usermanager.UsermanagerController.Create(SharedModels.Dtos.UserDto,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new user with the given UserDto object.
+            </summary>
+            <param name="dto">The UserDto object containing the user information.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns an Ok result if the user was created successfully, otherwise a BadRequest result with the error description.</returns>
+        </member>
+        <member name="M:Web.Api.Usermanager.UsermanagerController.Delete(System.Collections.Generic.List{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Deletes a user from the database.
+            </summary>
+            <param name="UserId">The id of the user to delete.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A response indicating success or failure.</returns>
+        </member>
+        <member name="M:Web.Api.Usermanager.UsermanagerController.GetById(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Gets a user by their Id.
+            </summary>
+            <param name="UserId">The Id of the user.</param>
+            <param name="cancellationToken"></param>
+            <returns>The user with the specified Id.</returns>
+        </member>
+        <member name="M:Web.Api.Usermanager.UsermanagerController.List(SharedModels.PageListModel,System.Threading.CancellationToken)">
+            <summary>
+            Get a list of users based on the PageListModel.
+            </summary>
+            <param name="model">The PageListModel containing the parameters for the list.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            Returns an OkResult with the list of users or a BadRequestResult with an error message.
+            </returns>
+        </member>
+        <member name="M:Web.Api.Usermanager.UsermanagerController.ChangeUserState(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Changes the state of the user.
+            </summary>
+            <param name="UserId">The user identifier.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The result of the operation.</returns>
+        </member>
+        <member name="M:Web.Api.Usermanager.UsermanagerController.Update(System.Int32,SharedModels.Dtos.UserUpdateDto,System.Threading.CancellationToken)">
+            <summary>
+            Updates a user with the given Id using the given UserUpdateDto.
+            </summary>
+            <param name="Id">The Id of the user to update.</param>
+            <param name="dto">The UserUpdateDto containing the new user information.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A response indicating success or failure.</returns>
+        </member>
+        <member name="P:Web.TagHelpers.Common.BaseUrlTagHelper.ClassName">
+            <summary>
+            add custom class to item
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Common.PaginationTagHelper.Page">
+            <summary>
+            Current Page
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Common.PaginationTagHelper.Size">
+            <summary>
+            Page size
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Common.PaginationTagHelper.Total">
+            <summary>
+            Total
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Common.PaginationTagHelper.ClassName">
+            <summary>
+            add custom class to item
+            </summary>
+        </member>
+        <member name="T:Web.TagHelpers.Panel.BottomSheet.BottomSheetTagHelper">
+            <summary>
+            Trigger with data-sheet-control="nima" data-html-append="<h1>hi</h1>"
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.BottomSheet.BottomSheetTagHelper.Id">
+            <summary>
+            add custom id to item
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.BottomSheet.BottomSheetTagHelper.ClassName">
+            <summary>
+            add custom class to item
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.BottomSheet.BottomSheetTagHelper.MinHeight">
+            <summary>
+            add custom class to item
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.BottomSheet.BottomSheetTagHelper.DisableDrag">
+            <summary>
+            add custom class to item
+            </summary>
+        </member>
+        <member name="F:Web.TagHelpers.Panel.Controls.EditorTagHelper.EditorType">
+            <summary>
+            1 = Modern
+            2 = classic
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.Controls.FileUploaderTagHelper.ClassName">
+            <summary>
+            add custom class to item
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.Controls.GalleryUploaderTagHelper.ClassName">
+            <summary>
+            add custom class to item
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.Controls.GalleryUploaderTagHelper.MaxSize">
+            <summary>
+            byte
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.Controls.GalleryUploaderTagHelper.MaxHeight">
+            <summary>
+            px
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.Controls.ImageUploaderTagHelper.ClassName">
+            <summary>
+            add custom class to item
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.Controls.ImageUploaderTagHelper.MaxSize">
+            <summary>
+            byte
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.Controls.ImageUploaderTagHelper.MaxHeight">
+            <summary>
+            px
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.Grid.GridCard.HasCheckBox">
+            <summary>
+            Card has checkbox or not
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.Grid.GridCard.ItemId">
+            <summary>
+            Id of item that generate
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.Grid.GridCard.ClassName">
+            <summary>
+            add custom class to item
+            </summary>
+        </member>
+        <member name="P:Web.TagHelpers.Panel.Grid.GridContainer.ClassName">
+            <summary>
+            add custom class to item
+            </summary>
+        </member>
+    </members>
+</doc>

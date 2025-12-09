@@ -1,0 +1,17 @@
+[
+  {
+    "type": "img",
+    "value": "test",
+    "uname": "header-logo-img"
+  },
+  {
+    "type": "text",
+    "value": "\u062A\u0633\u062A \u062F\u0648\u0645",
+    "uname": "hero-title"
+  },
+  {
+    "type": "textarea",
+    "value": "test",
+    "uname": "hero-subtitle"
+  }
+]

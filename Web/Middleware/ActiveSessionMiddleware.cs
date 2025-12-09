@@ -1,0 +1,45 @@
+﻿using Common.Utilities;
+using Data.Repositories;
+using Entities.User;
+using Services.Services.CMS.ActiveSession;
+using System.Net;
+using System.Security.Claims;
+
+namespace Web.Middleware
+{
+    public class ActiveSessionMiddleware
+    {
+        private readonly RequestDelegate _next;
+        private readonly IRepository<ActiveSession> _activeSessionService;
+
+        public ActiveSessionMiddleware(RequestDelegate next,IRepository<ActiveSession> activeSessionService)
+        {
+            _next = next;
+            _activeSessionService = activeSessionService;
+        }
+
+        public async Task InvokeAsync(HttpContext context)
+        {
+            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (token != null)
+            {
+                var EncyToken = EncryptUtility.Encrypt(token);
+                var findUser = _activeSessionService.TableNoTracking.Where(a => a.Token == EncyToken).FirstOrDefault();
+                if (findUser == null)
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    return;
+                }
+            }
+           
+
+            //if (await tokenRevocationService.IsTokenRevokedAsync(token))
+            //{
+            //    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //    return;
+            //}
+
+            await _next(context);
+        }
+    }
+}

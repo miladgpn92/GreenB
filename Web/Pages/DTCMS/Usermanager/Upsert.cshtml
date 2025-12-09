@@ -1,0 +1,107 @@
+﻿@page
+@model Web.Pages.DTCMS.Usermanager.UpsertModel
+@{
+}
+
+@inject IStringLocalizer<ResourceLibrary.Panel.Admin.Users.Users> Localizer;
+@inject IStringLocalizer<ResourceLibrary.Panel.Common.Global.Global> GlobalLocalizer;
+
+
+@{
+    if (Model.IsEdit)
+    {
+        ViewData["Title"] = GlobalLocalizer["Edit"] + ": " + Model?.Items?.Name +" " + Model?.Items?.Family;
+    }
+    else
+    {
+        ViewData["Title"] = Localizer["AddTItle"];
+    }
+
+    Layout = "_DashLayout";
+    ViewBag.HasBottomSheetMenu = false;
+}
+
+<form method="post">
+
+
+
+    <input type="hidden" asp-for="IsEdit" />
+    <input type="hidden" asp-for="Items.Id" />
+
+
+
+    <main>
+        <div class="rlt:text-right ltr:text-left">
+            <div class="mb-6">
+                <dt:image-uploader asp-for="Items.PicUrl" rounded="true" ></dt:image-uploader>
+            </div>
+
+            <div class="mb-12 text-center">
+               <dt:gender asp-for="Items.Gender"></dt:gender>
+            </div>
+
+
+            <div class="mb-6">
+                <dt:input-text asp-for="Items.Name"></dt:input-text>
+            </div>
+
+            <div class="mb-6">
+                <dt:input-text asp-for="Items.Family"></dt:input-text>
+            </div>
+
+            <div class="mb-6">
+                <dt:input-text asp-for="Items.PhoneNumber"></dt:input-text>
+            </div>
+
+            <div class="mb-6">
+                <dt:input-text asp-for="Items.Email"></dt:input-text>
+            </div>
+            @if(Model.IsEdit == false)
+            {
+                <div class="mb-6">
+                    <dt:input-text asp-for="Items.Password"></dt:input-text>
+                </div>
+            }
+
+            <div class="mb-6">
+
+                <label asp-for="Items.UserRole" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> </label>
+                <div class="mt-1">
+                    <select asp-for="Items.UserRole" asp-items="Model.AvailableRoles" class="w-full block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm   sm:text-sm border-gray-300 rounded-md">
+                 
+                    </select>
+                </div>
+
+
+             
+            </div>
+           
+        </div>
+
+
+
+
+
+        @if (Model.IsEdit)
+        {
+            <button type="button"
+                    class="text-center w-full focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2 dark:focus:ring-yellow-900">
+                @GlobalLocalizer["Edit"]
+            </button>
+        }
+        else
+        {
+            <button type="button"
+                    class="text-center w-full text-white bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:bg-green-500 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex dark:focus:ring-[#3b5998]/55  mb-2 items-center flex justify-center">
+                @GlobalLocalizer["Publish"]
+            </button>
+
+        }
+    </main>
+
+
+
+
+
+
+</form>

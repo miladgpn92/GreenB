@@ -1,0 +1,95 @@
+﻿@using Services.Services.CMS.GlobalSetting
+@using Services.Services.CMS.Setting
+@using SharedModels.Dtos
+@using Web.Pages.Template.Components.CommonComponent.AdminBar;
+
+@inject IGlobalSettingService GlobalSettingService
+@inject ISettingService SettingService
+
+@{
+    // Retrieve global and specific settings
+    var globalSettingResponse = GlobalSettingService.GetGlobalSetting();
+    var GlobalSetting = globalSettingResponse.IsSuccess ? globalSettingResponse.Model : new GetGlobalSettingDto();
+
+    var settingResponse = SettingService.GetSetting();
+    var Setting = settingResponse.IsSuccess ? settingResponse.Model : new SettingSelectDto();
+
+    // Default AdminBar configurations
+    bool AdminBarAdd = ViewBag.AdminBarAdd as bool? ?? false;
+    bool AdminBarEdit = ViewBag.AdminBarEdit as bool? ?? false;
+    bool AdminBarList = ViewBag.AdminBarList as bool? ?? false;
+    bool AdminBarDelete = ViewBag.AdminBarDelete as bool? ?? false;
+    string AdminBarRoute = ViewBag.AdminBarRoute as string ?? "/";
+    int? AdminBarId = ViewBag.AdminBarId as int? ?? null;
+
+
+    List<AdminBarCustomModel>? AdminBarCustom = ViewBag.AdminBarCustom;
+
+}
+
+<!DOCTYPE html>
+<html lang="fa-IR">
+<head>
+ 
+     <vc:seo-generator setting="Setting"></vc:seo-generator>
+    <vc:inject-code global-setting-dto="@GlobalSetting" is-header="true"></vc:inject-code>
+
+ 
+    <link href="~/Template/css/style.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="~/Template/css/rtl.css" rel="stylesheet" asp-append-version="true"/>
+    <link rel="manifest" href="~/Template/manifest/manifest.json">
+    <meta name="theme-color" content="#3986D1">
+
+    @await RenderSectionAsync("Header", required: false)
+</head>
+
+
+<body class="rtl-body" dir="rtl">
+
+ <!-- Preloader -->
+    <div class="preloader-bg">
+    </div>
+    <div id="preloader">
+        <div id="preloader-status">
+            <div class="preloader-position loader">
+                <span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Progress scroll totop -->
+    <div class="progress-wrap cursor-pointer">
+        <svg class="progress-circle svg-content" height="100%" viewbox="-1 -1 102 102" width="100%">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98">
+            </path>
+        </svg>
+    </div>
+    <vc:adminbar add="AdminBarAdd"
+                 edit="AdminBarEdit"
+                 list="AdminBarList"
+                 delete="AdminBarDelete"
+                 route="@AdminBarRoute"
+                 id="@AdminBarId"
+                 custom="AdminBarCustom">
+    </vc:adminbar>
+
+
+ 
+
+    <vc:header></vc:header>
+
+
+    @RenderBody()
+
+
+    <vc:footer></vc:footer>
+
+  
+    <vc:inject-code global-setting-dto="@GlobalSetting" is-header="false"></vc:inject-code>
+    <script src="~/Template/js/main.js">
+    </script>
+    <script src="~/Template/js/rtl.js">
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
