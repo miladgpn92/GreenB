@@ -1,7 +1,0 @@
-﻿@model VCInjectCodeModel
-
-@if(Model.IsHeader){
-    Write(Html.Raw(Model.GlobalSettingDto.InjectHeader));
-}else{
-    Write(Html.Raw(Model.GlobalSettingDto.InjectFooter));
-}
