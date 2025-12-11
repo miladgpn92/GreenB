@@ -57,10 +57,11 @@ namespace Common.Utilities
 
         public static string TextLimit(this string input, int maxLength, bool removeHtml = false)
         {
-            input = input.Trim();   
-         
             if (string.IsNullOrEmpty(input) || maxLength <= 0)
                 return input;
+            input = input.Trim();   
+         
+        
 
             if (removeHtml)
             {

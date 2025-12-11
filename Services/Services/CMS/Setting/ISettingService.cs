@@ -13,11 +13,7 @@ namespace Services.Services.CMS.Setting
     {
         ResponseModel<SettingSelectDto> GetSetting();
         ResponseModel SetPublicSetting(PublicSetting publicSetting);
-        ResponseModel SetAddressCallSetting(AddressCallSetting addressCallSetting);
-        ResponseModel SetSEOSetting(string SeoList);
-
-
-       
+  
 
     }
 }

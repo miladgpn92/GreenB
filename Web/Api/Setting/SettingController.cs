@@ -17,6 +17,7 @@ using System.Data;
 namespace Web.Api.Setting
 {
     [ApiVersion("1")]
+    [ApiExplorerSettings(GroupName = RoleConsts.Admin)]
     [Authorize(Roles = RoleConsts.Admin, AuthenticationSchemes = "JwtScheme")]
     public class SettingController : BaseController
     {
@@ -83,40 +84,6 @@ namespace Web.Api.Setting
 
 
 
-        /// <summary>
-        /// Sets the address call setting.
-        /// </summary>
-        /// <param name="addressCallSetting">The address call setting.</param>
-        /// <param name="lang">The language.</param>
-        /// <returns>The action result.</returns>
-        [HttpPost("[action]")]
-        public ActionResult SetAddressCallSetting(AddressCallSetting addressCallSetting, CmsLanguage lang)
-        {
-            var res = _settingService.SetAddressCallSetting(addressCallSetting);
-            if (res.IsSuccess)
-                return Ok();
-            else
-                return BadRequest(res.Description);
-        }
-
-
-
-        /// <summary>
-        /// Sets the SEO setting for the specified language.
-        /// </summary>
-        /// <param name="list">The list of SEO settings.</param>
-        /// <param name="lang">The language.</param>
-        /// <returns>The result of the operation.</returns>
-
-        [HttpPost("[action]")]
-        public ActionResult SetSEOSetting(string list, CmsLanguage lang)
-        {
-            var res = _settingService.SetSEOSetting(list);
-            if (res.IsSuccess)
-                return Ok();
-            else
-                return BadRequest(res.Description);
-        }
 
 
  

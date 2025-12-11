@@ -137,22 +137,6 @@
             Returns an action result.
             </returns>
         </member>
-        <member name="M:Web.Api.Setting.SettingController.SetAddressCallSetting(SharedModels.Dtos.AddressCallSetting,Common.Enums.CmsLanguage)">
-            <summary>
-            Sets the address call setting.
-            </summary>
-            <param name="addressCallSetting">The address call setting.</param>
-            <param name="lang">The language.</param>
-            <returns>The action result.</returns>
-        </member>
-        <member name="M:Web.Api.Setting.SettingController.SetSEOSetting(System.String,Common.Enums.CmsLanguage)">
-            <summary>
-            Sets the SEO setting for the specified language.
-            </summary>
-            <param name="list">The list of SEO settings.</param>
-            <param name="lang">The language.</param>
-            <returns>The result of the operation.</returns>
-        </member>
         <member name="M:Web.Api.Setting.SettingController.SendSMS(SharedModels.Dtos.SendSMSDto)">
             <summary>
             Sends an SMS to the specified phone number.

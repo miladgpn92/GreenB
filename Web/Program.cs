@@ -141,6 +141,8 @@ builder.Services.AddSwagger();
 builder.Services.AddHttpClient<ISMSService, SMSService>();
 builder.Services.AddHttpClient<IEmailService, EmailService>();
 
+builder.Services.AddHostedService<QueuedSmsSenderHostedService>();
+
  
 builder.Services.AddCors(options =>
 {

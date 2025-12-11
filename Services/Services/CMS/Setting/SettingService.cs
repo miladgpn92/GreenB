@@ -69,7 +69,7 @@ namespace Services.Services.CMS.Setting
             });
         }
 
-        public ResponseModel SetAddressCallSetting(AddressCallSetting addressCallSetting)
+        public ResponseModel SetPublicSetting(PublicSetting addressCallSetting)
         {
             return UpdateSettingBase(setting =>
             {
@@ -78,31 +78,19 @@ namespace Services.Services.CMS.Setting
                 setting.Address = addressCallSetting.Address;
                 setting.Latitude = addressCallSetting.Latitude;
                 setting.Longitude = addressCallSetting.Longitude;
-            });
-        }
-
-        public ResponseModel SetPublicSetting(PublicSetting publicSetting)
-        {
-            return UpdateSettingBase(setting =>
-            {
-                setting.SiteTitle = publicSetting.SiteTitle;
-                setting.LogoUrl = publicSetting.LogoUrl;
-                setting.FavIconUrl = publicSetting.FavIconUrl;
-                setting.AboutUs = publicSetting.AboutUs;
-                setting.WorkingHours = publicSetting.WorkingHours;  
-                setting.IntroVideoUrl = publicSetting.IntroVideoUrl;
-                setting.SMSText = publicSetting.SMSText;
+                setting.LogoUrl = addressCallSetting.LogoUrl;
+                setting.FavIconUrl = addressCallSetting.FavIconUrl;
+                setting.SiteTitle = addressCallSetting.SiteTitle;
+                setting.SMSText = addressCallSetting.SMSText;
+                setting.TelegramLink = addressCallSetting.TelegramLink;
+                setting.WhatsappLink = addressCallSetting.WhatsappLink;
+                setting.InstagramLink = addressCallSetting.InstagramLink;
+                setting.EaitaLink = addressCallSetting.EaitaLink;
 
             });
         }
 
-        public ResponseModel SetSEOSetting(string seoList)
-        {
-            return UpdateSettingBase(setting =>
-            {
-                setting.SeoList = seoList;
-            });
-        }
+
 
         // Centralized update method to reduce code duplication
         private ResponseModel UpdateSettingBase(Action<SiteSetting> updateAction)

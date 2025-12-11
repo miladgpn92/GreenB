@@ -22,22 +22,22 @@ namespace Services.Services.CMS.UserSubmissions
     {
         private readonly IRepository<UserSubmission> _userSubmissionRepository;
         private readonly IMapper _mapper;
-        private readonly ISMSService _smsService;
         private readonly ISettingService _settingService;
         private readonly ProjectSettings _projectSettings;
+        private readonly IQueuedSmsService _queuedSmsService;
 
         public UserSubmissionService(
             IRepository<UserSubmission> userSubmissionRepository,
             IMapper mapper,
-            ISMSService smsService,
             ISettingService settingService,
-            IOptionsSnapshot<ProjectSettings> projectSettings)
+            IOptionsSnapshot<ProjectSettings> projectSettings,
+            IQueuedSmsService queuedSmsService)
         {
             _userSubmissionRepository = userSubmissionRepository;
             _mapper = mapper;
-            _smsService = smsService;
             _settingService = settingService;
             _projectSettings = projectSettings.Value;
+            _queuedSmsService = queuedSmsService;
         }
 
         public async Task<ResponseModel<List<UserSubmissionDto>>> GetListAsync(PageListModel model, int? categoryId, string phone, CancellationToken cancellationToken)
@@ -107,14 +107,7 @@ namespace Services.Services.CMS.UserSubmissions
                 !string.IsNullOrWhiteSpace(entity.Phone) &&
                 smsConfig != null)
             {
-                var smsResult = await _smsService.SendSMSAsync(
-                    smsConfig.SMSToken,
-                    smsConfig.BaseUrl,
-                    entity.Phone,
-                    smsMessage);
-
-                if (!smsResult.IsSuccess)
-                    return new ResponseModel<int>(true, entity.Id, "ثبت درخواست انجام شد اما ارسال پیامک با خطا مواجه شد.");
+                await _queuedSmsService.EnqueueAsync(entity.Phone, smsMessage, cancellationToken);
             }
 
             return new ResponseModel<int>(true, entity.Id, "درخواست با موفقیت ثبت شد");
