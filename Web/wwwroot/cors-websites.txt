@@ -1,0 +1,12 @@
+http://localhost:5222
+http://localhost:5000
+https://localhost:5000
+https://pro-gym.ir
+http://pro-gym.ir
+http://127.0.0.1:8080
+http://localhost:3000
+http://localhost:3000
+https://progym.dariatech.com
+http://progym.dariatech.com
+https://app.pro-gym.ir
+http://app.pro-gym.ir

@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+	  <TargetFramework>net9.0</TargetFramework>
+	  <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>MyApi.xml</DocumentationFile>
+		<OutputPath>bin\Debug\</OutputPath>
+		<NoWarn>1701;1702;1591;CS8602</NoWarn>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+	  <Content Remove="wwwroot\DTCMS\assets\ts\components\ui\ai\index.ts" />
+	  <Content Remove="wwwroot\DTCMS\assets\ts\pages\dashboard\global\index.ts" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\ResourceLibrary\ResourceLibrary.csproj" />
+    <ProjectReference Include="..\Shared\SharedModels.csproj" />
+    <ProjectReference Include="..\WebFramework\WebFramework.csproj" />
+  </ItemGroup>
+
+
+	<ItemGroup>
+	  <Folder Include="Models\Api\" />
+	  <Folder Include="Pages\Template\Components\Components\" />
+	  <Folder Include="Pages\Template\PartialView\" />
+	  <Folder Include="wwwroot\DTCMS\assets\fonts\dt-icon\" />
+	  <Folder Include="wwwroot\files\user\" />
+	  <Folder Include="wwwroot\Shared\libs\" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <PackageReference Include="AspNetCore.ReCaptcha" Version="1.8.2" />
+	  <PackageReference Include="InstagramApiSharp" Version="1.8.1" />
+	  <PackageReference Include="Markdig" Version="0.41.1" />
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.4" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="QRCoder" Version="1.6.0" />
+	  <PackageReference Include="Sentry.AspNetCore" Version="5.16.1" />
+
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <TypeScriptCompile Include="wwwroot\DTCMS\assets\ts\components\ui\ai\index.ts" />
+	  <TypeScriptCompile Include="wwwroot\DTCMS\assets\ts\pages\dashboard\global\index.ts" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Update="web.config">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+</Project>

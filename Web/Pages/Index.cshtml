@@ -1,0 +1,24 @@
+﻿@page
+@using Web.Pages.Template.Components.CommonComponent.AdminBar;
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    ViewBag.IsIndex = true;
+
+    List<AdminBarCustomModel>? Custom = new List<AdminBarCustomModel>()
+{
+new AdminBarCustomModel()
+{
+Icon = "dashboard",
+Link = "/dtcms",
+Text = "پیشخوان"
+}
+};
+
+    ViewBag.AdminBarCustom = Custom;
+}
+
+
+ Index
+
+

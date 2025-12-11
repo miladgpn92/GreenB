@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "path": "/",
+    "SeoTitle": "صفحه اصلی",
+    "SeoDesc": "DariaCMS"
+  },
+  {
+    "id": 2,
+    "path": "/Articles",
+    "SeoTitle": "مقالات",
+    "SeoDesc": "لیست مقالات"
+  },
+  {
+    "id": 3,
+    "path": "/Contactus",
+    "SeoTitle": "تماس باما",
+    "SeoDesc": "  تماس با ما"
+  },
+  {
+    "id": 4,
+    "path": "/Pages",
+    "SeoTitle": "صفحات  ",
+    "SeoDesc": "    صفحات  "
+  },
+  {
+    "id": 5,
+    "path": "/AboutUs",
+    "SeoTitle": "درباره ما  ",
+    "SeoDesc": "    درباره ما  "
+  },
+  {
+    "id": 6,
+    "path": "/podcasts",
+    "SeoTitle": "پادکست ",
+    "SeoDesc": "    پادکست    "
+  },
+  {
+    "id": 7,
+    "path": "/portfolios",
+    "SeoTitle": "    نمونه کار ها ",
+    "SeoDesc": " نمونه کار ها   "
+  },
+  {
+    "id": 8,
+    "path": "/team",
+    "SeoTitle": "تیم ",
+    "SeoDesc": "تیم   "
+  }
+
+
+
+]

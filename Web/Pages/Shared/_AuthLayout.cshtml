@@ -1,0 +1,84 @@
+﻿@using Common;
+@using Microsoft.Extensions.Options;
+@using System.Globalization;
+@inject IOptionsSnapshot<ProjectSettings> settings;
+@inject IStringLocalizer<ResourceLibrary.Panel.Common.Auth.Layout.Layout> Localizer;
+@{
+     bool isRTL = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+   
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link async href="~/DTCMS/bundle/css/bundle.css" rel="stylesheet" asp-append-version="true">
+    <link rel="manifest" href="/DTCMS/manifest/manifest.json">
+    <meta name="theme-color" content="#3986D1">
+
+</head>
+<body dir='@(isRTL == true? "rtl":"ltr")'>
+
+
+
+    <main
+          class="bg-gray-50 min-h-screen pt-6">
+        <div class="  max-w-2xl mx-auto">
+            <div class="flex justify-between px-4 mb-16">
+                <a href="/">
+                  <svg width="67" height="67" viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="66.9875" height="66.9875" fill="black"/>
+<rect x="4.26367" y="4.26367" width="58.4221" height="58.4221" fill="white"/>
+<circle cx="43.2563" cy="17.6993" r="5.79395" fill="#F19100"/>
+<path d="M20.4917 51.8733V17.0086H34.2469C36.8799 17.0086 39.127 17.4796 40.9883 18.4216C42.8609 19.3522 44.2852 20.6744 45.2613 22.3881C46.2486 24.0905 46.7423 26.0936 46.7423 28.3975C46.7423 30.7127 46.243 32.7045 45.2442 34.3728C44.2455 36.0298 42.7985 37.3009 40.9032 38.1862C39.0192 39.0714 36.738 39.514 34.0596 39.514H24.8497V33.5898H32.8679C34.2752 33.5898 35.4442 33.3968 36.3748 33.0109C37.3055 32.6251 37.9978 32.0463 38.4517 31.2745C38.9171 30.5028 39.1497 29.5438 39.1497 28.3975C39.1497 27.2399 38.9171 26.2639 38.4517 25.4694C37.9978 24.675 37.2998 24.0735 36.3578 23.6649C35.4272 23.245 34.2525 23.035 32.8339 23.035H27.863V51.8733H20.4917ZM39.32 36.0071L47.9851 51.8733H39.8477L31.3699 36.0071H39.32Z" fill="black"/>
+</svg>
+
+
+                </a>
+
+                <img src="~/DTCMS/assets/images/icon/backArrow.svg"
+                     alt="Back"
+                     class="ltr:rotate-180 cursor-pointer self-center"
+                     onclick="window.history.back()"
+                     
+                />
+            </div>
+            
+            @RenderBody()
+
+            <div class="flex justify-center items-center mt-[60px] mx-4  md:mx-0">
+                <div>
+                    @Localizer["Poweredby"]
+                    <a class="mx-1"
+                    target="_blank"
+                    href="https://dariatech.com"><b class="font-bold">DariaCMS</b></a>
+                </div>
+
+                
+            </div>
+        </div>
+            <div id="toastContainerArea" class=" fixed bottom-6 right-2/4 translate-x-1/2 hidden items-center w-full max-w-[344px]  p-4" role="alert">
+            <div   id="toastMessageArea"></div>
+            <button type="button"
+            onclick="closeToast()"
+                class=" absolute rtl:left-4 ltr:right-4 top-[25px] bg-transparent text-gray-400 rounded-lg focus:ring-2 p-1.5 inline-flex py-4 w-8"
+                aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L6 4.58579L10.2929 0.292893C10.6834 -0.0976311 11.3166 -0.0976311 11.7071 0.292893C12.0976 0.683417 12.0976 1.31658 11.7071 1.70711L7.41421 6L11.7071 10.2929C12.0976 10.6834 12.0976 11.3166 11.7071 11.7071C11.3166 12.0976 10.6834 12.0976 10.2929 11.7071L6 7.41421L1.70711 11.7071C1.31658 12.0976 0.683417 12.0976 0.292893 11.7071C-0.0976311 11.3166 -0.0976311 10.6834 0.292893 10.2929L4.58579 6L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683417 0.292893 0.292893Z"
+                        fill="white" />
+                </svg>
+            </button>
+        </div>
+    </main>
+
+
+
+    <script src="~/DTCMS/bundle/bundle.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
