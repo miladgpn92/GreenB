@@ -1,12 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection.Emit;
 using Common.Enums;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.IO;
 
 namespace Entities
@@ -45,6 +40,8 @@ namespace Entities
 
         #endregion
 
+        public string SMSText { get; set; }
+
         // New property to store content data
         public string ContentData { get; set; }
     }
@@ -69,8 +66,8 @@ namespace Entities
         public void Configure(EntityTypeBuilder<SiteSetting> builder)
         {
             int id = 1;
-            // مقدار ثابت برای SeoList
-            string staticSeoList = GetRouteForSeo(); // مقدار واقعی را اینجا قرار دهید
+            // ????? ???? ???? SeoList
+            string staticSeoList = GetRouteForSeo(); // ????? ????? ?? ????? ???? ????
 
             foreach (CmsLanguage lang in Enum.GetValues(typeof(CmsLanguage)))
             {
@@ -79,9 +76,10 @@ namespace Entities
                     {
                         Id = id,
                         CmsLanguage = lang,
-                        CreateDate = new DateTime(2025, 6, 1, 0, 0, 0), // مقدار ثابت
+                        CreateDate = new DateTime(2025, 6, 1, 0, 0, 0), // ????? ????
                         CreatorIP = "127.0.0.1",
-                        SeoList = staticSeoList, // مقدار ثابت
+                        SeoList = staticSeoList, // ????? ????
+                        SMSText = "کد پیگیری شما ثبت شد.",
                     }
                 );
                 id++;

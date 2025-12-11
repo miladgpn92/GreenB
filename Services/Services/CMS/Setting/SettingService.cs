@@ -91,6 +91,7 @@ namespace Services.Services.CMS.Setting
                 setting.AboutUs = publicSetting.AboutUs;
                 setting.WorkingHours = publicSetting.WorkingHours;  
                 setting.IntroVideoUrl = publicSetting.IntroVideoUrl;
+                setting.SMSText = publicSetting.SMSText;
 
             });
         }

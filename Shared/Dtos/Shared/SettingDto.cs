@@ -4,12 +4,7 @@ using Entities;
 using ResourceLibrary.Resources.ErrorMsg;
 using ResourceLibrary.Resources.Setting;
 using SharedModels.CustomMapping;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SharedModels.Dtos
 {
@@ -25,18 +20,20 @@ namespace SharedModels.Dtos
         [Display(Name = "FavIconUrl", ResourceType = typeof(SettingRes))]
         public string FavIconUrl { get; set; }
 
-        [Display(Name = "درباره ما")]
+        [Display(Name = "?????? ??")]
         public string AboutUs { get; set; }
 
-        [Display(Name = "ساعت کاری")]
+        [Display(Name = "???? ????")]
         public string WorkingHours { get; set; }
 
 
-        [Display(Name = "ویدئو معرفی")]
+        [Display(Name = "????? ?????")]
         public string IntroVideoUrl { get; set; }
 
-
+        [Display(Name = "متن پیامک")]
+        public string SMSText { get; set; }
     }
+
     public class AddressCallSetting
     {
         [Display(Name = "Phonenumber", ResourceType = typeof(SettingRes))]
@@ -48,19 +45,19 @@ namespace SharedModels.Dtos
         [Display(Name = "Address", ResourceType = typeof(SettingRes))]
         public string Address { get; set; }
 
-        [Display(Name = "  طول جغرافیایی")]
+        [Display(Name = "  ??? ?????????")]
         public string Latitude { get; set; }
 
-        [Display(Name = "  عرض جغرافیایی")]
+        [Display(Name = "  ??? ?????????")]
         public string Longitude { get; set; }
-
-
     }
+
     public class SEOSetting
     {
         [Display(Name = "SeoList", ResourceType = typeof(SettingRes))]
         public string SeoList { get; set; }
     }
+
     public class InjectSetting
     {
         [Display(Name = "InjectHeader", ResourceType = typeof(SettingRes))]
@@ -69,6 +66,7 @@ namespace SharedModels.Dtos
         [Display(Name = "InjectFooter", ResourceType = typeof(SettingRes))]
         public string InjectFooter { get; set; }
     }
+
     public class EmailSetting
     {
         [Display(Name = "EmailSMTPUrl", ResourceType = typeof(SettingRes))]
@@ -86,6 +84,7 @@ namespace SharedModels.Dtos
         [Display(Name = "EmailSSL", ResourceType = typeof(SettingRes))]
         public bool EmailSSL { get; set; }
     }
+
     public class SocialSetting
     {
         [Display(Name = "TelegramLink", ResourceType = typeof(SettingRes))]
@@ -116,7 +115,6 @@ namespace SharedModels.Dtos
         public string TwitterLink { get; set; }
     }
 
-
     public class AISetting
     {
         [Display(Name = "AIToken", ResourceType = typeof(SettingRes))]
@@ -129,14 +127,14 @@ namespace SharedModels.Dtos
 
     public class AIPageGeneratorDto
     {
-        [Display(Name = "وضعیت صفحه ساز با AI")]
+        [Display(Name = "????? ???? ??? ?? AI")]
         public bool? AIPageGeneratorEnable { get; set; }
 
-        [Display(Name = "کلمات کلیدی اصلی")]
+        [Display(Name = "????? ????? ????")]
         public string AIMainKeyword { get; set; }
-        [Display(Name = "کلمات کلیدی فرعی")]
+        [Display(Name = "????? ????? ????")]
         public string AISecondaryKeyword { get; set; }
-        [Display(Name = "کلمات کلیدی مکان")]
+        [Display(Name = "????? ????? ????")]
         public string AILocationKeyword { get; set; }
     }
 
@@ -160,7 +158,7 @@ namespace SharedModels.Dtos
 
         public string IntroVideoUrl { get; set; }
 
-
+        public string SMSText { get; set; }
 
         public CmsLanguage CmsLanguage { get; set; }
     }
@@ -205,8 +203,6 @@ namespace SharedModels.Dtos
         public string AISecondaryKeyword { get; set; }
 
         public string AILocationKeyword { get; set; }
-
-
     }
 
     public class SettingDtoMapping : IHaveCustomMapping
@@ -216,13 +212,13 @@ namespace SharedModels.Dtos
             profile.CreateMap<SettingSelectDto, SiteSetting>();
             profile.CreateMap<SiteSetting, SettingSelectDto>();
 
-         
 
-            profile.CreateMap<SettingSelectDto,PublicSetting>();
+
+            profile.CreateMap<SettingSelectDto, PublicSetting>();
             profile.CreateMap<SettingSelectDto, AddressCallSetting>();
             profile.CreateMap<SettingSelectDto, SEOSetting>();
 
-            profile.CreateMap<GetGlobalSettingDto , EmailSetting>();
+            profile.CreateMap<GetGlobalSettingDto, EmailSetting>();
             profile.CreateMap<GetGlobalSettingDto, SocialSetting>();
             profile.CreateMap<GetGlobalSettingDto, InjectSetting>();
             profile.CreateMap<GetGlobalSettingDto, AISetting>();
