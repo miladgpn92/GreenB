@@ -16,7 +16,7 @@ using System.Data;
 namespace Web.Api.Usermanager
 {
     [ApiVersion("1")]
-    [Authorize(Roles = RoleConsts.Admin, AuthenticationSchemes = "JwtScheme")]
+    [Authorize(Roles = RoleConsts.Admin)]
     [NonController]
     public class UsermanagerController : BaseController
     {

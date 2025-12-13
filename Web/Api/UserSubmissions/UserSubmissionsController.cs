@@ -12,7 +12,7 @@ namespace Web.Api.UserSubmissions
 {
     [ApiVersion("1")]
     [ApiExplorerSettings(GroupName = RoleConsts.Admin)]
-    [Authorize(Roles = RoleConsts.Admin, AuthenticationSchemes = "JwtScheme")]
+    [Authorize(Roles = RoleConsts.Admin)]
     public class UserSubmissionsController : BaseController
     {
         private readonly IUserSubmissionService _userSubmissionService;

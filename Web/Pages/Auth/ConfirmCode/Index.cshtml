@@ -6,37 +6,44 @@
 @inject IHtmlLocalizer<ResourceLibrary.Panel.Common.Auth.ConfirmCode.ConfirmCode> HtmlLocalizer;
 @{
     ViewData["Title"] = @Localizer["Title"];
-    Layout = "_AuthLayout";
+    Layout = "_Layout";
 }
 
-<main>
-    <h3 class="my-5 px-6 text-gray-900 font-extrabold text-[26px]">
-        @Localizer["Step2Title"]
-    </h3>
-    <div class="gray-800 px-6">
-        @(HtmlLocalizer["Step2Subtitle", Model.model.UserName])
-        <a href="/auth/forgotpassword"
-            class="process__link mx-3 text-xs font-semibold rounded bg-yellow-400 text-white px-[11px] py-[7px]">
-            @Localizer["Edit"]
-        </a>
+<main class="mx-auto w-full max-w-3xl px-5 py-12">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 to-green-400 px-6 py-7 text-white shadow-xl">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div class="space-y-2">
+                <span class="text-xs font-semibold uppercase tracking-[0.25em] text-white/80">@Localizer["Title"]</span>
+                <h1 class="text-3xl font-black sm:text-4xl">@Localizer["Step2Title"]</h1>
+                <p class="text-sm sm:text-base text-white/90">@(HtmlLocalizer["Step2Subtitle", Model.model.UserName])</p>
+            </div>
+            <a href="/auth/forgotpassword"
+               class="inline-flex items-center justify-center rounded-full bg-white/15 px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-white/25">
+                @Localizer["Edit"]
+            </a>
+        </div>
+        <div class="pointer-events-none absolute -right-12 -bottom-10 h-44 w-44 rounded-full bg-white/10 blur-3xl"></div>
+        <div class="pointer-events-none absolute left-4 top-4 h-20 w-20 rounded-full bg-white/20 blur-2xl"></div>
     </div>
 
-    <div  class="mx-2 mt-10 bg-white py-8 px-4 shadow   sm:px-10">
-        <form  class="space-y-6" method="post">
+    <div class="relative -mt-10 rounded-3xl border border-gray-200 bg-white p-6 shadow-xl sm:p-8">
+        <div class="absolute -top-5 right-6 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 shadow-sm">
+            <span class="h-2 w-2 rounded-full bg-emerald-500"></span>@Localizer["Step2Title"]
+        </div>
+        <form class="space-y-6" method="post">
             <div>
                 <div asp-validation-summary="ModelOnly"
-                    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"></div>
+                    class="rounded-xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm text-rose-700 shadow-sm"></div>
             </div>
-            <div>
+            <div class="space-y-4">
                 <input type="hidden" asp-for="IsRegister" />
-
                 <input type="hidden" asp-for="model.UserName" />
 
                 <div class="relative">
-                    <div class="absolute top-[0px] rtl:left-[0px] ltr:right-[0px]">
+                    <div class="absolute top-0 rtl:left-0 ltr:right-0 text-xs font-semibold text-emerald-700">
                         <span class="timer" id="timeCounterContainer">1:15</span>
                         <span id="resendCodeButton" onclick="resendResetCode()"
-                            class=" cursor-pointer text-blue-600 hidden">
+                            class="hidden cursor-pointer px-2 text-emerald-700 underline">
                             @Localizer["Resend"]
                         </span>
                     </div>
@@ -45,16 +52,14 @@
                 <div>
                     <recaptcha />
                 </div>
-
             </div>
-            <div>
+            <div class="flex justify-end">
                 <button
                 onclick="verifyPhoneForgotPassword(this)"
-                    class="w-full flex justify-center py-[9px] px-4  border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
+                    class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
                     <span class="inline" id="submitText"> @Localizer["SubmitButton"]</span>
                 </button>
             </div>
         </form>
     </div>
-
 </main>

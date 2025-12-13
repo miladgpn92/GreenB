@@ -14,7 +14,7 @@ namespace Web.Api.Filemanager
     [ApiVersion("1")]
     [Route("api/admin/filemanager")]
     [ApiExplorerSettings(GroupName = RoleConsts.Admin)]
-    [Authorize(Roles = RoleConsts.Admin, AuthenticationSchemes = "JwtScheme")]
+    [Authorize(Roles = RoleConsts.Admin)]
     public class FilemanagerController : BaseController
     {
         private readonly IFilemanagerService _filemanagerService;

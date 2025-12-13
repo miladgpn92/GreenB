@@ -18,7 +18,7 @@ namespace Web.Api.Setting
 {
     [ApiVersion("1")]
     [ApiExplorerSettings(GroupName = RoleConsts.Admin)]
-    [Authorize(Roles = RoleConsts.Admin, AuthenticationSchemes = "JwtScheme")]
+    [Authorize(Roles = RoleConsts.Admin)]
     public class SettingController : BaseController
     {
         private readonly ISettingService _settingService;

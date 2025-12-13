@@ -14,7 +14,7 @@ namespace Web.Api.User
     [ApiVersion("1")]
     [Route("api/common/userprofile")]
     [ApiExplorerSettings(GroupName = RoleConsts.Admin)]
-    [Authorize(AuthenticationSchemes = "JwtScheme")]
+    [Authorize(Roles = RoleConsts.Admin)]
     public class UserProfileController : BaseController
     {
         private readonly IProfileService _profileService;

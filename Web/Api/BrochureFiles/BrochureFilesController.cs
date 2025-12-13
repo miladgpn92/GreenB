@@ -12,7 +12,7 @@ namespace Web.Api.BrochureFiles
 {
     [ApiVersion("1")]
     [ApiExplorerSettings(GroupName = RoleConsts.Admin)]
-    [Authorize(Roles = RoleConsts.Admin,AuthenticationSchemes = "JwtScheme")]
+    [Authorize(Roles = RoleConsts.Admin)]
     public class BrochureFilesController : BaseController
     {
         private readonly IBrochureFileService _brochureFileService;

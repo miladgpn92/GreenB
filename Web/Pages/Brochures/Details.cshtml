@@ -1,0 +1,69 @@
+@page "/brochures/{slug?}"
+@model Web.Pages.Brochures.DetailsModel
+@{
+    var brochure = Model.Brochure;
+}
+
+@if (brochure == null)
+{
+    <section class="mx-auto w-full max-w-5xl px-6 py-12">
+        <div class="rounded-2xl border border-dashed border-gray-200 bg-white p-8 text-center text-gray-600">
+            <p class="text-lg font-semibold text-gray-800">بروشور مورد نظر پیدا نشد.</p>
+            <p class="mt-2 text-sm">لطفا دوباره تلاش کنید یا به صفحه اصلی برگردید.</p>
+            <div class="mt-6">
+                <a class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700"
+                   href="/">
+                    صفحه اصلی
+                </a>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <section class="mx-auto w-full max-w-6xl px-6 py-12">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div class="space-y-3">
+                <a class="inline-flex items-center text-sm font-semibold text-emerald-700 hover:text-emerald-800" href="/">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    بازگشت به صفحه اصلی
+                </a>
+                <p class="text-sm font-semibold text-emerald-600">جزئیات بروشور</p>
+                <h1 class="text-3xl font-black text-gray-900 sm:text-4xl">@brochure.Title</h1>
+                <p class="max-w-3xl text-gray-600">برای مشاهده بروشور کامل از پیش‌نمایش زیر استفاده کنید یا فایل PDF را دانلود کنید.</p>
+                <div class="flex flex-wrap gap-3 text-sm text-gray-500">
+                    <span class="rounded-full bg-emerald-50 px-3 py-1 font-semibold text-emerald-700">بروشور</span>
+                    <span>انتشار: @brochure.CreatedAt.ToString("yyyy/MM/dd")</span>
+                    <span>شناسه: @(!string.IsNullOrWhiteSpace(brochure.Slug) ? brochure.Slug : brochure.Id.ToString())</span>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-3">
+                <a class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700"
+                   href="@brochure.PdfFileUrl" target="_blank" rel="noopener">
+                    دانلود PDF
+                </a>
+                <a class="inline-flex items-center justify-center rounded-xl border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-700 transition hover:border-emerald-200 hover:text-emerald-700"
+                   href="/">
+                    صفحه اصلی
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-8 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-lg">
+            <div class="relative h-[720px] w-full">
+                <object data="@brochure.PdfFileUrl" type="application/pdf" class="h-full w-full">
+                    <div class="flex h-full w-full flex-col items-center justify-center gap-3 bg-gray-50 px-6 text-center text-gray-600">
+                        <p class="text-lg font-semibold text-gray-700">پیش‌نمایش در دسترس نیست.</p>
+                        <p class="text-sm">برای مشاهده بروشور، فایل را دانلود کنید.</p>
+                        <a class="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
+                           href="@brochure.PdfFileUrl" target="_blank" rel="noopener">
+                            دانلود فایل
+                        </a>
+                    </div>
+                </object>
+            </div>
+        </div>
+    </section>
+}

@@ -44,7 +44,7 @@ public class IndexModel : PageModel
 
         if(User.Identity.IsAuthenticated)
         {
-            return RedirectToPage("/dtcms/index");
+            return RedirectToPage("/index");
         }
         return Page();
 
@@ -61,7 +61,7 @@ public class IndexModel : PageModel
                 var result = await _signInManager.PasswordSignInAsync(AuthDto.username, AuthDto.password, true, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToPage("/dtcms/index");
+                    return RedirectToPage("/index");
                 }
 
                 ModelState.AddModelError(string.Empty, _Localizer["InvalidLogin"]);
