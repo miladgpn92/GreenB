@@ -24,7 +24,7 @@ namespace Web.Api.UserSubmissions
         }
 
         [HttpPost("PagedList")]
-        public async Task<IActionResult> GetAll([FromBody] PageListModel model, [FromQuery] int? categoryId, [FromQuery] string phone, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAll([FromBody] PageListModel model, [FromQuery] int? categoryId, [FromQuery] string? phone, CancellationToken cancellationToken)
         {
             var res = await _userSubmissionService.GetListAsync(model, categoryId, phone, cancellationToken);
             if (res.IsSuccess)

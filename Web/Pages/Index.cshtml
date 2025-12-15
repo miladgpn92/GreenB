@@ -6,19 +6,34 @@
     ViewBag.IsIndex = true;
 }
 
-<section class="mx-auto w-full max-w-6xl px-6 py-12">
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+<section class="mx-auto w-full max-w-6xl px-6 py-12 mb-3">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-3">
         <div class="space-y-3">
-            <span class="text-sm font-semibold text-emerald-600">بروشورهای گرین‌بی</span>
-            <h1 class="text-3xl font-black text-gray-900 sm:text-4xl">مرکز دانلود و مشاهده بروشورها</h1>
-            <p class="max-w-3xl text-gray-600">آخرین بروشورهای منتشر شده را اینجا ببینید. اگر تنها یک بروشور وجود دارد،
-                پیش‌نمایش مستقیم آن برای شما نمایش داده می‌شود.</p>
+
         </div>
-        <div class="rounded-full bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-700">
-            @Model.Brochures.Count بروشور
+        <div class="flex flex-col items-end gap-3">
+          
+            @if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <div class="flex flex-wrap justify-end gap-3" data-index-admin>
+                    <button type="button" data-open-modal="quick-submission"
+                        class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+                        <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/15 text-xs">+</span>
+                        ثبت شماره جدید
+                    </button>
+                    <button type="button" data-open-modal="management"
+                        class="inline-flex items-center gap-2 rounded-xl border border-emerald-200 px-4 py-2.5 text-sm font-semibold text-emerald-700 transition hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-emerald-50">
+                        <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-50 text-xs text-emerald-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 6.75h4.5m-4.5 4.5h4.5m-9 4.5h13.5M4.5 4.5h15v15h-15v-15Z" />
+                            </svg>
+                        </span>
+                        مدیریت
+                    </button>
+                </div>
+            }
         </div>
     </div>
-
     @if (Model.Brochures.Count == 0)
     {
         <div class="mt-10 rounded-2xl border border-dashed border-gray-200 bg-white p-8 text-center text-gray-500">
@@ -30,51 +45,12 @@
     {
         var brochure = Model.Brochures[0];
 
-        <div class="_df_book" height="500vh" direction="2" webgl="true" backgroundcolor="teal"
+        <div class="_df_book" height="500vh" direction="2" webgl="true" backgroundcolor="white"
             source="@brochure.PdfFileUrl" id="df_manual_book">
         </div>
 
 
-        <div class="mt-10 grid gap-6 lg:grid-cols-[1.05fr,0.95fr]">
-            <div
-                class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 to-green-400 p-8 text-white shadow-lg">
-                <div class="flex flex-wrap items-center gap-3 text-sm">
-                    <span class="rounded-full bg-white/15 px-3 py-1 font-semibold">بروشور ویژه</span>
-                    <span class="text-white/80">@((brochure.UpdatedAt ?? brochure.CreatedAt).ToString("yyyy/MM/dd"))</span>
-                </div>
-                <h2 class="mt-6 text-3xl font-black">@brochure.Title</h2>
-                <p class="mt-3 max-w-2xl text-white/90">آدرس فایل زیر فعال است. برای دانلود مستقیم یا مشاهده جزئیات روی
-                    دکمه‌های پایین کلیک کنید.</p>
-                <div class="mt-8 flex flex-wrap gap-3">
-                    <a class="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-emerald-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
-                        href="@brochure.PdfFileUrl" target="_blank" rel="noopener">
-                        دانلود بروشور PDF
-                    </a>
-                    <a class="inline-flex items-center justify-center rounded-xl border border-white/50 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-                        href="@Url.Page("/Brochures/Details", new { slug = brochure.Slug ?? brochure.Id.ToString() })">
-                        مشاهده جزئیات
-                    </a>
-                </div>
-                <div class="pointer-events-none absolute -left-10 -top-10 h-44 w-44 rounded-full bg-white/10 blur-3xl">
-                </div>
-                <div class="pointer-events-none absolute bottom-0 right-0 h-32 w-32 rounded-full bg-white/10 blur-3xl">
-                </div>
-            </div>
-            <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-md">
-                <div class="relative h-[520px] w-full">
-                    <object data="@brochure.PdfFileUrl" type="application/pdf" class="h-full w-full">
-                        <div
-                            class="flex h-full w-full flex-col items-center justify-center gap-3 bg-gray-50 px-6 text-center text-gray-600">
-                            <p class="font-semibold">پیش‌نمایش در مرورگر شما فعال نیست.</p>
-                            <a class="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
-                                href="@brochure.PdfFileUrl" target="_blank" rel="noopener">
-                                دانلود فایل بروشور
-                            </a>
-                        </div>
-                    </object>
-                </div>
-            </div>
-        </div>
+      
     }
     else
     {
@@ -102,3 +78,400 @@
         </div>
     }
 </section>
+
+@if (User.Identity?.IsAuthenticated ?? false)
+{
+    <div data-modal="quick-submission"
+        class="fixed inset-0 z-[100] hidden items-start justify-center bg-slate-900/60 px-4 py-8 sm:items-center">
+        <div class="relative w-full max-w-2xl overflow-hidden rounded-3xl bg-white shadow-2xl">
+            <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-br from-emerald-500/10 to-emerald-200/30 blur-3xl">
+            </div>
+            <div class="relative flex items-start justify-between gap-4 border-b border-gray-100 px-6 py-4">
+                <div>
+                    <p class="text-xs font-semibold text-emerald-600">ثبت سریع شماره</p>
+                    <h3 class="text-lg font-black text-gray-900">ارسال بروشور برای مخاطبان</h3>
+                    <p class="mt-1 text-xs text-gray-500">شماره تماس اجباری است، فرم بعد از ثبت باز می ماند.</p>
+                </div>
+                <button type="button" data-close-modal
+                    class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition hover:bg-gray-200 hover:text-gray-700">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="relative space-y-4 px-6 py-6" data-quick-form>
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <label class="space-y-2 text-sm text-gray-700">
+                        <span>شماره تماس*</span>
+                        <input data-quick-phone type="tel"
+                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                            placeholder="09XXXXXXXXX" required />
+                    </label>
+                    <label class="space-y-2 text-sm text-gray-700">
+                        <span>دسته بندی*</span>
+                        <select data-quick-category
+                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                            required>
+                            <option>در حال بارگذاری...</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <label class="space-y-2 text-sm text-gray-700">
+                        <span>نام</span>
+                        <input data-quick-firstname type="text"
+                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                    </label>
+                    <label class="space-y-2 text-sm text-gray-700">
+                        <span>نام خانوادگی</span>
+                        <input data-quick-lastname type="text"
+                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                    </label>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="text-xs text-gray-500" data-quick-status>بعد از ثبت، فرم باز می ماند تا شماره بعدی را
+                        وارد کنید.</div>
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" data-refresh-categories
+                            class="inline-flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-700 transition hover:border-emerald-200 hover:text-emerald-700">
+                            بروزرسانی دسته بندی
+                        </button>
+                        <button type="submit" data-submit-quick
+                            class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg">
+                            ثبت و ارسال بروشور
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div data-modal="management" class="fixed inset-0 z-[100] hidden bg-slate-900/60 px-3 py-6 sm:px-6">
+        <div class="mx-auto flex h-full max-h-[760px] w-full max-w-6xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 px-6 py-4">
+                <div>
+                    <p class="text-xs font-semibold text-emerald-600">مدیریت پیشرفته</p>
+                    <h3 class="text-lg font-black text-gray-900">دسته بندی ها، ثبت ها و تنظیمات</h3>
+                    <p class="text-xs text-gray-500">همه چیز از همین جا؛ کاملا واکنش گرا و مناسب موبایل.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="flex overflow-hidden rounded-full border border-gray-200 bg-gray-50 p-1 text-xs font-semibold">
+                        <button data-admin-tab="categories" type="button"
+                            class="rounded-full bg-white px-3 py-2 text-emerald-700 shadow-sm">دسته بندی ها</button>
+                        <button data-admin-tab="submissions" type="button"
+                            class="rounded-full px-3 py-2 text-gray-500 hover:text-gray-800">ثبت ها</button>
+                        <button data-admin-tab="brochures" type="button"
+                            class="rounded-full px-3 py-2 text-gray-500 hover:text-gray-800">مدیریت بروشورها</button>
+                        <button data-admin-tab="settings" type="button"
+                            class="rounded-full px-3 py-2 text-gray-500 hover:text-gray-800">تنظیمات</button>
+                    </div>
+                    <button data-close-modal type="button"
+                        class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition hover:bg-gray-200 hover:text-gray-700">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid flex-1 grid-rows-1 overflow-hidden">
+                <div class="row-span-1 overflow-y-auto px-6 py-6 space-y-8">
+                    <div data-admin-section="categories" class="space-y-5">
+                        <div class="rounded-2xl bg-gray-50/70 px-4 py-3 text-xs text-gray-600">
+                            مدیریت دسته بندی برای مرتب کردن ارسال ها. عنوان تکراری را هم می توانید ویرایش کنید.
+                        </div>
+                        <form data-category-form
+                            class="grid gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:grid-cols-[1.3fr,0.7fr] sm:items-end">
+                            <input type="hidden" data-category-id />
+                            <label class="space-y-2 text-sm text-gray-700">
+                                <span>عنوان دسته بندی</span>
+                                <input data-category-title type="text"
+                                    class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                                    placeholder="مثلا: مشتریان جدید" required />
+                            </label>
+                            <div class="flex flex-wrap items-center gap-2 sm:justify-end">
+                                <button type="button" data-category-reset
+                                    class="inline-flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-700 transition hover:border-emerald-200 hover:text-emerald-700">پاک کردن فرم</button>
+                                <button type="submit" data-category-save
+                                    class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg">ذخیره دسته بندی</button>
+                                <button type="button" data-category-reload
+                                    class="inline-flex items-center gap-2 rounded-xl border border-emerald-200 px-3 py-2 text-xs font-semibold text-emerald-700 transition hover:border-emerald-300 hover:bg-emerald-50">بارگذاری لیست</button>
+                            </div>
+                        </form>
+                        <div data-category-list class="grid gap-3 sm:grid-cols-2"></div>
+                    </div>
+
+                    <div data-admin-section="submissions" class="hidden space-y-5">
+                        <div class="rounded-2xl bg-gray-50/70 px-4 py-3 text-xs text-gray-600">
+                            لیست ارسال ها با فیلتر شماره تماس و دسته بندی. برای هر ثبت می توانید فایل PDF بارگذاری کنید.
+                        </div>
+                        <div class="flex flex-col gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+                            <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                                <div class="grid gap-3 sm:grid-cols-3 sm:items-end sm:gap-4">
+                                    <label class="text-sm text-gray-700">
+                                        <span class="mb-1 block text-xs text-gray-500">دسته بندی</span>
+                                        <select data-submission-filter-category
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100">
+                                            <option value="">همه</option>
+                                        </select>
+                                    </label>
+                                    <label class="text-sm text-gray-700 sm:col-span-2">
+                                        <span class="mb-1 block text-xs text-gray-500">جستجو بر اساس شماره تماس</span>
+                                        <input data-submission-search type="text"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                                            placeholder="09XXXXXXXXX" />
+                                    </label>
+                                </div>
+                                <button type="button" data-submission-refresh
+                                    class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg">بارگذاری لیست</button>
+                            </div>
+                            <div class="grid gap-4 lg:grid-cols-[1.1fr,0.9fr]">
+                                <div data-submission-list class="grid gap-3 sm:grid-cols-2"></div>
+                                <div class="rounded-2xl border border-dashed border-gray-200 bg-gray-50 p-4 text-xs text-gray-600"
+                                    data-submission-detail>
+                                    جزئیات هر ثبت بعد از کلیک در اینجا نشان داده می شود.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+                            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-3">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">ثبت دستی مخاطب جدید</p>
+                                    <p class="text-xs text-gray-500">شماره الزامی است؛ فایل PDF اختیاری و فقط با فرمت مجاز.</p>
+                                </div>
+                            </div>
+                            <form data-submission-form class="mt-4 space-y-4">
+                                <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                                    <label class="space-y-2 text-sm text-gray-700">
+                                        <span>شماره تماس*</span>
+                                        <input data-submission-phone type="tel"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                                            required />
+                                    </label>
+                                    <label class="space-y-2 text-sm text-gray-700">
+                                        <span>نام</span>
+                                        <input data-submission-firstname type="text"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                    <label class="space-y-2 text-sm text-gray-700">
+                                        <span>نام خانوادگی</span>
+                                        <input data-submission-lastname type="text"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                    <label class="space-y-2 text-sm text-gray-700 lg:col-span-2">
+                                        <span>دسته بندی*</span>
+                                        <select data-submission-category
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                                            required>
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div class="grid gap-3 sm:grid-cols-[1fr,0.4fr] sm:items-center">
+                                    <div class="rounded-2xl border border-dashed border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+                                        <label class="flex cursor-pointer flex-col gap-2 text-sm">
+                                            <span class="text-xs text-gray-500">بارگذاری فایل PDF (اختیاری)</span>
+                                            <input data-submission-upload type="file" accept="application/pdf"
+                                                class="text-xs text-gray-700" />
+                                        </label>
+                                        <p class="mt-2 text-xs text-gray-500" data-submission-upload-status>هیچ فایلی انتخاب نشده است.</p>
+                                        <div class="mt-2 text-xs text-emerald-700" data-submission-upload-link></div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2 sm:justify-end">
+                                        <button type="button" data-submission-upload-clear
+                                            class="rounded-xl border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-700 transition hover:border-emerald-200 hover:text-emerald-700">حذف فایل</button>
+                                        <button type="submit" data-submission-save
+                                            class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg">ثبت مخاطب</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div data-admin-section="brochures" class="hidden space-y-5">
+                        <div class="rounded-2xl bg-gray-50/70 px-4 py-3 text-xs text-gray-600">
+                            مدیریت بروشورها؛ امکان ثبت، ویرایش، حذف و بارگذاری PDF.
+                        </div>
+                        <div class="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm space-y-4">
+                            <div class="flex items-center justify-between gap-2 border-b border-gray-100 pb-3">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">لیست بروشورها</p>
+                                    <p class="text-xs text-gray-500">فایل PDF باید حتما بارگذاری شود.</p>
+                                </div>
+                                <button type="button" data-brochure-refresh
+                                    class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg">بارگذاری لیست</button>
+                            </div>
+                            <div data-brochure-list class="grid gap-3 sm:grid-cols-2"></div>
+                        </div>
+                        <form data-brochure-form class="space-y-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+                            <div class="grid gap-3 sm:grid-cols-2">
+                                <label class="space-y-1 text-sm text-gray-700">
+                                    <span>عنوان بروشور*</span>
+                                    <input data-brochure-title type="text"
+                                        class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" required />
+                                </label>
+                                <label class="space-y-1 text-sm text-gray-700">
+                                    <span>اسلاگ (اختیاری)</span>
+                                    <input data-brochure-slug type="text"
+                                        class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                </label>
+                            </div>
+                            <label class="space-y-1 text-sm text-gray-700">
+                                <span>بارگذاری فایل PDF*</span>
+                                <input data-brochure-pdf type="file" accept="application/pdf"
+                                    class="text-xs text-gray-700" />
+                            </label>
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div class="text-xs text-gray-500" data-brochure-status>بروشور جدید اضافه کنید.</div>
+                                <button type="submit" data-brochure-save
+                                    class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg">ذخیره بروشور</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div data-admin-section="settings" class="hidden space-y-5">
+                        <div class="rounded-2xl bg-gray-50/70 px-4 py-3 text-xs text-gray-600">
+                            تنظیمات عمومی، پیامک و شارژ از همین بخش مدیریت می شود.
+                        </div>
+                        <form data-settings-form
+                            class="grid gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm lg:grid-cols-2">
+                            <div class="space-y-3">
+                                <label class="space-y-1 text-sm text-gray-700">
+                                    <span>عنوان سایت</span>
+                                    <input data-setting-field="siteTitle" type="text"
+                                        class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                </label>
+                                <label class="space-y-1 text-sm text-gray-700">
+                                    <span>لوگو (آدرس)</span>
+                                    <input data-setting-field="logoUrl" type="text"
+                                        class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                </label>
+                                <label class="space-y-1 text-sm text-gray-700">
+                                    <span>فاوآیکون</span>
+                                    <input data-setting-field="favIconUrl" type="text"
+                                        class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                </label>
+                                <label class="space-y-1 text-sm text-gray-700">
+                                    <span>متن پیامک ارسالی</span>
+                                    <textarea data-setting-field="smsText" rows="4"
+                                        class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"></textarea>
+                                </label>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="grid gap-3 sm:grid-cols-2">
+                                    <label class="space-y-1 text-sm text-gray-700">
+                                        <span>تلفن ثابت</span>
+                                        <input data-setting-field="tell" type="text"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                    <label class="space-y-1 text-sm text-gray-700">
+                                        <span>شماره همراه</span>
+                                        <input data-setting-field="phonenumber" type="text"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                    <label class="space-y-1 text-sm text-gray-700">
+                                        <span>عرض جغرافیایی</span>
+                                        <input data-setting-field="latitude" type="text"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                    <label class="space-y-1 text-sm text-gray-700">
+                                        <span>طول جغرافیایی</span>
+                                        <input data-setting-field="longitude" type="text"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                </div>
+                                <label class="space-y-1 text-sm text-gray-700">
+                                    <span>آدرس</span>
+                                    <textarea data-setting-field="address" rows="3"
+                                        class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"></textarea>
+                                </label>
+                                <div class="grid gap-3 sm:grid-cols-2">
+                                    <label class="space-y-1 text-sm text-gray-700">
+                                        <span>تلگرام</span>
+                                        <input data-setting-field="telegramLink" type="text"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                    <label class="space-y-1 text-sm text-gray-700">
+                                        <span>واتس اپ</span>
+                                        <input data-setting-field="whatsappLink" type="text"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                    <label class="space-y-1 text-sm text-gray-700">
+                                        <span>اینستاگرام</span>
+                                        <input data-setting-field="instagramLink" type="text"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                    <label class="space-y-1 text-sm text-gray-700">
+                                        <span>ایتا</span>
+                                        <input data-setting-field="eaitaLink" type="text"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                </div>
+                                <div class="flex flex-wrap items-center justify-between gap-2">
+                                    <div class="text-xs text-gray-500" data-settings-status>تغییرات را ذخیره کنید.</div>
+                                    <button type="submit" data-settings-save
+                                        class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg">ذخیره تنظیمات</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="grid gap-4 lg:grid-cols-2">
+                            <form data-sms-form
+                                class="space-y-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">ارسال پیامک</p>
+                                    <p class="text-xs text-gray-500">یک پیامک سریع با متن دلخواه بفرستید.</p>
+                                </div>
+                                <label class="space-y-1 text-sm text-gray-700">
+                                    <span>شماره مقصد</span>
+                                    <input data-sms-phone type="text"
+                                        class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                </label>
+                                <label class="space-y-1 text-sm text-gray-700">
+                                    <span>متن پیام</span>
+                                    <textarea data-sms-text rows="3"
+                                        class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"></textarea>
+                                </label>
+                                <button type="submit" data-sms-send
+                                    class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg">ارسال پیامک</button>
+                            </form>
+
+                            <div class="space-y-4">
+                                <form data-charge-form
+                                    class="space-y-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">افزایش شارژ پیامک</p>
+                                        <p class="text-xs text-gray-500">مبلغ را به تومان وارد کنید.</p>
+                                    </div>
+                                    <label class="space-y-1 text-sm text-gray-700">
+                                        <span>مبلغ</span>
+                                        <input data-charge-amount type="number" min="1000" step="500"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                    <button type="submit" data-charge-send
+                                        class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg">ثبت درخواست</button>
+                                </form>
+                                <form data-charge-validate-form
+                                    class="space-y-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">تایید پرداخت</p>
+                                        <p class="text-xs text-gray-500">در صورت پرداخت موفق، این بخش را تکمیل کنید.</p>
+                                    </div>
+                                    <label class="space-y-1 text-sm text-gray-700">
+                                        <span>مبلغ پرداخت</span>
+                                        <input data-charge-validate-amount type="number" min="1000" step="500"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                    <label class="space-y-1 text-sm text-gray-700">
+                                        <span>شناسه پرداخت</span>
+                                        <input data-charge-id type="number"
+                                            class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+                                    </label>
+                                    <button type="submit" data-charge-validate
+                                        class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg">تایید شارژ</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

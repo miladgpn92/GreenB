@@ -4,6 +4,7 @@ module.exports = {
         "./assets/css/**/*.{css,scss,sass}",
         "./assets/js/**/*.{js,ts}",
         "../Shared/**/*.{cshtml,razor}",
+        "../../Pages/**/*.{cshtml,razor,html}",
     ],
     theme: {
         extend: {},
